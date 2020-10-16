@@ -1,17 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using DatingApp.API.Models.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace DatingApp.API
@@ -45,11 +42,40 @@ namespace DatingApp.API
             Url = new Uri("https://zmaf.dk/"),
           }
         });
+        var securitySchema = new OpenApiSecurityScheme
+        {
+          Description = "JWT Auth Bearer Scheme",
+          Name = "Authorization",
+          In = ParameterLocation.Header,
+          Type = SecuritySchemeType.Http,
+          Scheme = "bearer",
+          Reference = new OpenApiReference
+          {
+            Type = ReferenceType.SecurityScheme,
+            Id = "Bearer"
+          }
+        };
+        c.AddSecurityDefinition("Bearer", securitySchema);
+        var securityRequirement = new OpenApiSecurityRequirement { { securitySchema, new[] { "Bearer" } } };
+        c.AddSecurityRequirement(securityRequirement);
       });
 
       #endregion
       services.AddCors();
       services.AddScoped<IAuthRepository, AuthRepository>();
+      services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+      {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+          ValidateIssuerSigningKey = true,
+          IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(
+            Configuration["Tokens:JwToken"])),
+          ValidateIssuer = false,
+          ValidateAudience = false
+        };
+      });
+
+
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +90,8 @@ namespace DatingApp.API
       app.UseHttpsRedirection();
 
       app.UseRouting();
-
+      // authentication always before authorization in the pipeline
+      app.UseAuthentication();
       app.UseAuthorization();
       // Enable middleware to serve generated Swagger as a JSON endpoint.
       app.UseSwagger();
