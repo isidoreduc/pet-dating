@@ -1,0 +1,42 @@
+<!-- <div mat-dialog-content>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Username</mat-label>
+      <input matInput [formControl]="loginFormControl" placeholder="Ex. John Hagipoulos" >
+      <mat-error *ngIf="loginFormControl.hasError('required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input matInput [formControl]="loginFormControl" placeholder="Min. 6 characters..." [type]="hide ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="loginFormControl.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div> -->
+
+<div mat-dialog-content>
+  <form #loginForm="ngForm" class="example-form" (ngSubmit)="login()">
+    <mat-form-field class="example-full-width">
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="model.username" name="username" placeholder="Ex. John Hagipoulos" required>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input matInput  [(ngModel)]="model.password" name="password" placeholder="Min. 6 characters..." [type]="hide ? 'password' : 'text'" required>
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Close</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+    </div>
+  </form>
+</div>
+
+
