@@ -9,13 +9,23 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-
+  isLogin: boolean;
 
   constructor(public dialog: MatDialog) { }
 
   openLoginDialog(): void {
+    this.isLogin = true;
     this.dialog.open(LoginDialogComponent, {
-      width: '450px',
+      width: '350px', height: '450px',
+      data: { isLogin: this.isLogin } // pass data to dialog
+    });
+  }
+
+  openRegisterDialog(): void {
+    this.isLogin = false;
+    this.dialog.open(LoginDialogComponent, {
+      width: '350px', height: '450px',
+      data: { isLogin: this.isLogin }
     });
   }
 

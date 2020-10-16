@@ -1,42 +1,42 @@
-<!-- <div mat-dialog-content>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Username</mat-label>
-      <input matInput [formControl]="loginFormControl" placeholder="Ex. John Hagipoulos" >
-      <mat-error *ngIf="loginFormControl.hasError('required')">
-        Name is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Password</mat-label>
-      <input matInput [formControl]="loginFormControl" placeholder="Min. 6 characters..." [type]="hide ? 'password' : 'text'">
-      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      <mat-error *ngIf="loginFormControl.hasError('required')">
-        Password is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-  </form>
-</div> -->
-
 <div mat-dialog-content>
+  <div fxLayoutAlign="center" class="title-box">
+    <mat-card-title color="accent">{{data.isLogin === true? "Login" : "Register"}}</mat-card-title>
+  </div>
+
   <form #loginForm="ngForm" class="example-form" (ngSubmit)="login()">
     <mat-form-field class="example-full-width">
       <mat-label>Username</mat-label>
-      <input matInput [(ngModel)]="model.username" name="username" placeholder="Ex. John Hagipoulos" required>
+      <input matInput [(ngModel)]="model.username" name="username" #username placeholder="Ex. John Hagipoulos" required>
     </mat-form-field>
-
+    <br />
     <mat-form-field class="example-full-width">
       <mat-label>Password</mat-label>
-      <input matInput  [(ngModel)]="model.password" name="password" placeholder="Min. 6 characters..." [type]="hide ? 'password' : 'text'" required>
+      <input matInput  [(ngModel)]="model.password" name="password" #password placeholder="Min. 6 characters..." [type]="hide ? 'password' : 'text'" required>
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </mat-form-field>
 
-    <div mat-dialog-actions>
+    <div mat-dialog-actions fxLayoutAlign="end" class="button-group">
       <button mat-button (click)="onNoClick()">Close</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Submit</button>
     </div>
   </form>
 </div>
 
 
+<!-- <pre>
+  Form Valid: {{loginForm.valid}}
+  Form Touched: {{loginForm.touched}}
+  form dirty: {{loginForm.dirty}}
+  form values: {{loginForm.value | json}}
+  username Valid: {{username.valid}}
+  username Touched: {{username.touched}}
+  username dirty: {{username.dirty}}
+  username values: {{username.value | json}}
+  password Valid: {{password.valid}}
+  password Touched: {{password.touched}}
+  password dirty: {{password.dirty}}
+  password values: {{password.value | json}}
+</pre> -->
+
+<!-- #username - a template reference, to be able to use it in template if you do not have one
+          set in .ts -->

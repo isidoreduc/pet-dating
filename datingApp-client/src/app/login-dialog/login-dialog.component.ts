@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-login-dialog',
@@ -10,9 +11,9 @@ export class LoginDialogComponent {
   model: any = {};
   hide = true;
 
-  constructor(
-    public dialogRef: MatDialogRef<LoginDialogComponent>,
-  ) { }
+
+  constructor(public dialogRef: MatDialogRef<LoginDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { } // injecting data from toolbar
 
 
   onNoClick(): void {

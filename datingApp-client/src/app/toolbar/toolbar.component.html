@@ -8,11 +8,11 @@
   <button mat-button class="button-margin">Messages</button>
   <span class="example-spacer"></span>
 
-  <button (click)="openLoginDialog()" mat-mini-fab color="accent"  #tooltip="matTooltip"
-    matTooltip="Login"
-    matTooltipPosition="below"
-    matTooltipShowDelay="200"
-    matTooltipHideDelay="1000">
+  <button class="button-margin" (click)="openRegisterDialog()" mat-raised-button>
+    Register
+  </button>
+  <button class="button-margin" (click)="openLoginDialog()" mat-raised-button color="accent">
+    Login
     <mat-icon>login</mat-icon>
   </button>
 </mat-toolbar>
