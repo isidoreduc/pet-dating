@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace DatingApp.API
 {
@@ -29,7 +30,26 @@ namespace DatingApp.API
     {
       services.AddControllers();
       services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SqliteConnection"]));
+      #region swagger config
+      services.AddSwaggerGen(c =>
+      {
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+          Title = "PetDating API",
+          Version = "v1",
+          Description = "Api for an useless, but hype pet dating site",
+          Contact = new OpenApiContact
+          {
+            Name = "AR",
+            Email = string.Empty,
+            Url = new Uri("https://zmaf.dk/"),
+          }
+        });
+      });
+
+      #endregion
       services.AddCors();
+      services.AddScoped<IAuthRepository, AuthRepository>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,12 +59,25 @@ namespace DatingApp.API
       {
         app.UseDeveloperExceptionPage();
       }
+
       app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
       app.UseHttpsRedirection();
 
       app.UseRouting();
 
       app.UseAuthorization();
+      // Enable middleware to serve generated Swagger as a JSON endpoint.
+      app.UseSwagger();
+
+      // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+      // specifying the Swagger JSON endpoint.
+      app.UseSwaggerUI(c =>
+      {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Useless API V1");
+
+        // To serve SwaggerUI at application's root page, set the RoutePrefix property to an empty string.
+        c.RoutePrefix = string.Empty;
+      });
 
       app.UseEndpoints(endpoints =>
       {
