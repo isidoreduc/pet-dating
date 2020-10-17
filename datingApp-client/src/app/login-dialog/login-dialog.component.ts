@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AuthService } from '../_services/auth.service';
 
 
 @Component({
@@ -12,7 +13,9 @@ export class LoginDialogComponent {
   hide = true;
 
 
-  constructor(public dialogRef: MatDialogRef<LoginDialogComponent>,
+  constructor(
+    private authService: AuthService,
+    public dialogRef: MatDialogRef<LoginDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { } // injecting data from toolbar
 
 
@@ -20,8 +23,18 @@ export class LoginDialogComponent {
     this.dialogRef.close();
   }
 
-  login() {
-    console.log(this.model);
-    this.dialogRef.close();
-  }
+  login = () =>
+    this.authService.login(this.model)
+      .subscribe(
+        () => this.dialogRef.close(),
+        error => console.log(error)
+      );
+
+
+
+  register = () => this.authService.register(this.model)
+    .subscribe(() => {
+      console.log("register complete");
+      this.dialogRef.close();
+    }, error => console.log(error));
 }

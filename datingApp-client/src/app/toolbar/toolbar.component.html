@@ -2,19 +2,29 @@
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
-  <span style="margin: 0 1rem 0 2rem">Pet Dating</span>
-  <button mat-button class="button-margin">Matches</button>
-  <button mat-button class="button-margin">Lists</button>
-  <button mat-button class="button-margin">Messages</button>
+  <span style="margin: 0 1rem 0 2rem">pet<strong style="color: #FF4081;">date</strong></span>
+  <button mat-button >Matches</button>
+  <button mat-button >Lists</button>
+  <button mat-button >Messages</button>
   <span class="example-spacer"></span>
 
-  <button class="button-margin" (click)="openRegisterDialog()" mat-raised-button>
-    Register
-  </button>
-  <button class="button-margin" (click)="openLoginDialog()" mat-raised-button color="accent">
-    Login
-    <mat-icon>login</mat-icon>
-  </button>
+  <mat-form-field  *ngIf="loggedIn()">
+    <mat-label class="dropdown">Hi!</mat-label>
+    <mat-select>
+      <mat-option value="edit">Edit user <mat-icon>create</mat-icon></mat-option>
+      <mat-option value="logout" (click)="logout()">Logout <mat-icon>exit_to_app</mat-icon></mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="!loggedIn()">
+    <button class="button-margin" (click)="openRegisterDialog()" mat-raised-button>
+      Register
+    </button>
+    <button class="button-margin" (click)="openLoginDialog()" mat-raised-button color="accent">
+      Login
+      <mat-icon>login</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
 
 

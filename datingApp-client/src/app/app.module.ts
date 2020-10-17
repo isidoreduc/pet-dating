@@ -3,6 +3,7 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
 import { A11yModule } from '@angular/cdk/a11y';
 import { AppComponent } from './app.component';
+import { AuthService } from './_services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CdkStepperModule } from '@angular/cdk/stepper';
@@ -52,13 +53,15 @@ import { PortalModule } from '@angular/cdk/portal';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { ValuesComponent } from './values/values.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ValuesComponent,
     ToolbarComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    HomeComponent
   ],
   imports: [
     A11yModule,
@@ -112,7 +115,7 @@ import { ValuesComponent } from './values/values.component';
     ReactiveFormsModule,
     FlexLayoutModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,7 +3,7 @@
     <mat-card-title color="accent">{{data.isLogin === true? "Login" : "Register"}}</mat-card-title>
   </div>
 
-  <form #loginForm="ngForm" class="example-form" (ngSubmit)="login()">
+  <form #loginForm="ngForm" class="example-form" (ngSubmit)="data.isLogin ? login(): register()">
     <mat-form-field class="example-full-width">
       <mat-label>Username</mat-label>
       <input matInput [(ngModel)]="model.username" name="username" #username placeholder="Ex. John Hagipoulos" required>
@@ -17,7 +17,8 @@
 
     <div mat-dialog-actions fxLayoutAlign="end" class="button-group">
       <button mat-button (click)="onNoClick()">Close</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Submit</button>
+      <button mat-raised-button color="primary" type="submit"
+        [disabled]="!loginForm.valid">Submit</button>
     </div>
   </form>
 </div>

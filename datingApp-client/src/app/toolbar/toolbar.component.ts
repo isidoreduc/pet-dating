@@ -29,6 +29,11 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
+  // !! is short for if(localStorage.getItem('token') !== null) return true else return false
+  loggedIn = (): boolean => !!localStorage.getItem('token');
+
+  logout = () => localStorage.removeItem('token');
+
   ngOnInit(): void {
   }
 
