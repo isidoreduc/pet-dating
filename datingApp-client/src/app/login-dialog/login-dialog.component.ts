@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from './../_services/alertify.service';
 
@@ -18,7 +19,7 @@ export class LoginDialogComponent {
     private authService: AuthService,
     public dialogRef: MatDialogRef<LoginDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private alerify: AlertifyService) { } // injecting data from toolbar
+    private alerify: AlertifyService, private router: Router) { } // injecting data from toolbar
 
 
   onNoClick(): void {
@@ -30,6 +31,7 @@ export class LoginDialogComponent {
       .subscribe(
         () => {
           this.dialogRef.close();
+          this.router.navigate(['/members']);
           this.alerify.success("Logged in successfully");
         },
         error => this.alerify.error(error)

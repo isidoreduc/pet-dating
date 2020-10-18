@@ -1,14 +1,20 @@
+a {
+  margin: 0 1rem 0 2rem;
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+}
+
 .example-spacer {
   flex: 1 1 auto;
 }
 
 .button-margin {
-  // margin-left: 1rem;
   margin-right: 1rem;
 }
 
 .dropdown {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   // width: fit-content;
   padding-left: 1rem;
 

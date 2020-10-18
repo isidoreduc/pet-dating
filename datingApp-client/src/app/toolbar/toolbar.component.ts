@@ -4,6 +4,7 @@ import { AlertifyService } from './../_services/alertify.service';
 import { AuthService } from './../_services/auth.service';
 import { LoginDialogComponent } from './../login-dialog/login-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -14,7 +15,7 @@ export class ToolbarComponent implements OnInit {
   isLogin: boolean;
 
   constructor(public dialog: MatDialog, private alertify: AlertifyService,
-    private authService: AuthService) { }
+    private authService: AuthService, private router: Router) { }
 
   openLoginDialog(): void {
     this.isLogin = true;
@@ -38,6 +39,7 @@ export class ToolbarComponent implements OnInit {
 
   logout = () => {
     localStorage.removeItem('token');
+    this.router.navigate(['/']);
     this.alertify.message("Logged out successfully");
   };
 
