@@ -11,7 +11,9 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -53,7 +55,6 @@ import { PortalModule } from '@angular/cdk/portal';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { ValuesComponent } from './values/values.component';
-import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,7 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormsModule,
     FlexLayoutModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, ErrorInterceptorProvider ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
