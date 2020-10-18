@@ -2,6 +2,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
 import { A11yModule } from '@angular/cdk/a11y';
+import { AlertifyService } from './_services/alertify.service';
 import { AppComponent } from './app.component';
 import { AuthService } from './_services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -116,7 +117,7 @@ import { ValuesComponent } from './values/values.component';
     ReactiveFormsModule,
     FlexLayoutModule
   ],
-  providers: [AuthService, ErrorInterceptorProvider ],
+  providers: [AuthService, ErrorInterceptorProvider, AlertifyService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

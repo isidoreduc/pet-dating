@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AlertifyService } from './../_services/alertify.service';
 import { LoginDialogComponent } from './../login-dialog/login-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -11,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class ToolbarComponent implements OnInit {
   isLogin: boolean;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private alertify: AlertifyService) { }
 
   openLoginDialog(): void {
     this.isLogin = true;
@@ -32,7 +33,10 @@ export class ToolbarComponent implements OnInit {
   // !! is short for if(localStorage.getItem('token') !== null) return true else return false
   loggedIn = (): boolean => !!localStorage.getItem('token');
 
-  logout = () => localStorage.removeItem('token');
+  logout = () => {
+    localStorage.removeItem('token');
+    this.alertify.message("Logged out successfully");
+  }
 
   ngOnInit(): void {
   }
