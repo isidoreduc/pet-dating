@@ -17,7 +17,7 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-import { LikedListsComponent } from './liked-lists/liked-lists.component';
+import { LikedListComponent } from './liked-list/liked-list.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -52,7 +52,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { MemberListsComponent } from './member-lists/member-lists.component';
+import { MemberListComponent } from './member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -60,6 +60,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { UserService } from './_services/user.service';
 import { ValuesComponent } from './values/values.component';
 import { appRoutes } from './routes';
 
@@ -70,9 +71,9 @@ import { appRoutes } from './routes';
     ToolbarComponent,
     LoginDialogComponent,
     HomeComponent,
-    LikedListsComponent,
-    MemberListsComponent,
-    MessagesComponent
+    MessagesComponent,
+    MemberListComponent,
+    LikedListComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -127,7 +128,7 @@ import { appRoutes } from './routes';
     ReactiveFormsModule,
     FlexLayoutModule
   ],
-  providers: [AuthService, ErrorInterceptorProvider, AlertifyService, AuthGuard],
+  providers: [AuthService, ErrorInterceptorProvider, AlertifyService, AuthGuard, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
