@@ -17,6 +17,7 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 import { LikedListComponent } from './liked-list/liked-list.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -78,6 +79,15 @@ import { appRoutes } from './routes';
     MemberCardComponent
   ],
   imports: [
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem("token");
+        },
+        allowedDomains: ["localhost:5000"],
+        disallowedRoutes: ["http://localhost:5000/api/auth/"]
+      },
+    }),
     FlexLayoutModule,
     RouterModule.forRoot(appRoutes),
     A11yModule,
