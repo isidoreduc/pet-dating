@@ -52,7 +52,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { MemberListComponent } from './member-list/member-list.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -73,9 +74,11 @@ import { appRoutes } from './routes';
     HomeComponent,
     MessagesComponent,
     MemberListComponent,
-    LikedListComponent
+    LikedListComponent,
+    MemberCardComponent
   ],
   imports: [
+    FlexLayoutModule,
     RouterModule.forRoot(appRoutes),
     A11yModule,
     ClipboardModule,

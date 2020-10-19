@@ -1,0 +1,25 @@
+.example-card {
+  max-width: 400px;
+}
+
+mat-card:hover img {
+  opacity: 0.8;
+}
+
+mat-card:hover {
+  transform: scale(1.05, 1.05);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
+}
+
+
+
+.example-header-image {
+  background-size: cover;
+}
+
+button:hover {
+  transform: scale(1.35, 1.35);
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}

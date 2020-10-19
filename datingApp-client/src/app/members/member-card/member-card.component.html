@@ -1,0 +1,21 @@
+<mat-card class="example-card mb-4">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image" style="background-image: url('{{member.photoUrl}}');"></div>
+    <mat-card-title >
+      {{member.username | titlecase}}
+      <mat-icon>pets</mat-icon>
+    </mat-card-title>
+    <mat-card-subtitle class="pb-3">{{member.age}} years young</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="{{member.photoUrl}}" alt="{{member.knownAs}}">
+  <mat-card-content>
+    <p>
+      {{member.introduction}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions fxLayout="row" fxLayoutAlign="space-around none" class="mb-2">
+    <button mat-icon-button ><mat-icon>portrait</mat-icon></button>
+    <button mat-icon-button><mat-icon>chat</mat-icon></button>
+    <button mat-icon-button color="accent"><mat-icon>favorite</mat-icon></button>
+  </mat-card-actions>
+</mat-card>

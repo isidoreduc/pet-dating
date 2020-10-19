@@ -15,7 +15,7 @@ export class ToolbarComponent implements OnInit {
   isLogin: boolean;
 
   constructor(public dialog: MatDialog, private alertify: AlertifyService,
-    private authService: AuthService, private router: Router) { }
+    public authService: AuthService, private router: Router) { }
 
   openLoginDialog(): void {
     this.isLogin = true;
