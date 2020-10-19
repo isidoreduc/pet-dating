@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace DatingApp.API.Models
 {
@@ -10,8 +11,9 @@ namespace DatingApp.API.Models
     public DateTime DateAdded { get; set; }
     public bool IsMainPhoto { get; set; }
 
-// without these 2 props, EF creates a default relationship, but does not cascade delete on user
-// removal. photos stay
+    // without these 2 props, EF creates a default relationship, but does not cascade delete on user
+    // removal. photos stay
+    [JsonIgnore] // to avoid reference loop
     public User User { get; set; }
     public int UserId { get; set; }
   }

@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Text;
+using AutoMapper;
 using DatingApp.API.Helpers;
 using DatingApp.API.Models.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -67,6 +68,7 @@ namespace DatingApp.API
       #endregion
       services.AddCors();
       services.AddScoped<IAuthRepository, AuthRepository>();
+      services.AddScoped<IDatingRepository, DatingRepository>();
       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
       {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -79,6 +81,7 @@ namespace DatingApp.API
         };
       });
       services.AddTransient<SeedData>();
+      services.AddAutoMapper(typeof(Startup));
 
     }
 
@@ -106,7 +109,7 @@ namespace DatingApp.API
         });
       }
       seeder.SeedUsers();
-      
+
       app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
       app.UseHttpsRedirection();
 

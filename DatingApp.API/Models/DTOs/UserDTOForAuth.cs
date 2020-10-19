@@ -2,10 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DatingApp.API.Models.DTOs
 {
-  public class UserDTO
+  public class UserDTOForAuth
   {
     [Required]
-    [MinLength(4)]
+    [MinLength(3)]
     public string Username { get; set; }
     [Required]
     [StringLength(24, MinimumLength = 6, ErrorMessage = "Password must have at least 6 characters")]

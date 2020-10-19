@@ -25,9 +25,9 @@ namespace DatingApp.API.Controllers
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login(UserDTO userDTO)
+    public async Task<IActionResult> Login(UserDTOForAuth userDTOForAuth)
     {
-      var userRegistered = await _authRepository.Login(userDTO.Username.ToLower(), userDTO.Password);
+      var userRegistered = await _authRepository.Login(userDTOForAuth.Username.ToLower(), userDTOForAuth.Password);
       if (userRegistered == null) return Unauthorized();
 
       // jwtoken creation: we need some identification info(id, name)
@@ -56,19 +56,19 @@ namespace DatingApp.API.Controllers
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(UserDTO userDTO)
+    public async Task<IActionResult> Register(UserDTOForAuth userDTOForAuth)
     {
       // validate request
       if (!ModelState.IsValid) return BadRequest();
 
-      userDTO.Username = userDTO.Username.ToLower();
-      if (await _authRepository.UserExists(userDTO.Username))
+      userDTOForAuth.Username = userDTOForAuth.Username.ToLower();
+      if (await _authRepository.UserExists(userDTOForAuth.Username))
         return BadRequest("Username already exists");
       var userToCreate = new User
       {
-        Username = userDTO.Username
+        Username = userDTOForAuth.Username
       };
-      var createdUser = await _authRepository.Register(userToCreate, userDTO.Password);
+      var createdUser = await _authRepository.Register(userToCreate, userDTOForAuth.Password);
       return Ok(createdUser);
     }
   }
