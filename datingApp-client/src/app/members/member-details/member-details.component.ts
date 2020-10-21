@@ -12,15 +12,17 @@ import { UserService } from './../../_services/user.service';
 })
 export class MemberDetailsComponent implements OnInit {
   user: IUser;
-  constructor(private userService: UserService, private alertify: AlertifyService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private alertify: AlertifyService, private router: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getUser();
+    // gets data from the resolver: use the same key you used in routes for resolve object (here <user>)
+    this.router.data.subscribe(data =>
+      this.user = data['user']);
   }
 
-  getUser = () => this.userService.getUserById(+this.route.snapshot.params['id']).subscribe(
-    (u: IUser) => this.user = u,
-    err => this.alertify.error(err)
-  );
+  // getUser = () => this.userService.getUserById(+this.route.snapshot.params['id']).subscribe(
+  //   (u: IUser) => this.user = u,
+  //   err => this.alertify.error(err)
+  // );
 
 }

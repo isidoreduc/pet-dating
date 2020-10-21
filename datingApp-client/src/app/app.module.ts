@@ -2,10 +2,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
 import { A11yModule } from '@angular/cdk/a11y';
-import { AlertifyService } from './_services/alertify.service';
 import { AppComponent } from './app.component';
-import { AuthGuard } from './_guards/auth.guard';
-import { AuthService } from './_services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CdkStepperModule } from '@angular/cdk/stepper';
@@ -54,6 +51,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import { MemberDetailsComponent } from './members/member-details/member-details.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NgModule } from '@angular/core';
@@ -62,10 +60,8 @@ import { PortalModule } from '@angular/cdk/portal';
 import { RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { UserService } from './_services/user.service';
 import { ValuesComponent } from './values/values.component';
 import { appRoutes } from './routes';
-import { MemberDetailsComponent } from './members/member-details/member-details.component';
 
 @NgModule({
   declarations: [
@@ -143,7 +139,8 @@ import { MemberDetailsComponent } from './members/member-details/member-details.
     ReactiveFormsModule,
     FlexLayoutModule
   ],
-  providers: [AuthService, ErrorInterceptorProvider, AlertifyService, AuthGuard, UserService],
+  providers: [ErrorInterceptorProvider,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
