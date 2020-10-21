@@ -1,0 +1,67 @@
+<!-- use safe navigation operator <?> so we don't get errors - data from server comes with delay, so when the template sees no data, it throws an 'undefined' error'-->
+<div class="container mt-5">
+  <div class="row">
+
+    <div class="col-sm-4">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar style="background-image: url('{{user?.photoUrl}}');
+          background-size: cover;"></div>
+          <mat-card-title>{{user?.knownAs | titlecase}}</mat-card-title>
+          <mat-card-subtitle>{{user?.city}}, {{user?.country}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{user?.photoUrl}}" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+          <p><b>Age</b><br>{{user?.age}}</p>
+          <p><b>Last active</b><br>{{user?.lastActive | date:'medium'}}</p>
+          <p><b>Member since</b><br>{{user?.created | date:'medium'}}</p>
+        </mat-card-content>
+        <mat-card-actions class="mb-1 d-flex">
+          <button mat-raised-button color="accent" class="w-100">LIKE</button>
+          <button mat-raised-button color="primary" class="w-100">MESSAGE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div class="col-sm-8">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="About {{user?.knownAs | titlecase}}">
+          <!-- to lazy load, include content in a ng-template tag, with matTabContent attribute -->
+          <ng-template matTabContent >
+            <div class="container mt-5">
+              <p style="font-size: 1.5rem;color:var(--my-mauve);">Description</p>
+              <p>{{user?.introduction}}</p>
+              <br>
+              <p style="font-size: 1.5rem;color:var(--my-mauve);">Looking for</p>
+              <p>{{user?.lookinFor}}</p>
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Interests">
+          <ng-template matTabContent>
+            <div class="container mt-5">
+
+              <p>{{user?.interests}}</p>
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Photos">
+          <ng-template matTabContent>
+            <div class="container mt-5">
+
+              Content
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Messages">
+          <ng-template matTabContent>
+            <div class="container mt-5">
+
+              Content
+            </div>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

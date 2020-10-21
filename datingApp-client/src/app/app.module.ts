@@ -65,6 +65,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { UserService } from './_services/user.service';
 import { ValuesComponent } from './values/values.component';
 import { appRoutes } from './routes';
+import { MemberDetailsComponent } from './members/member-details/member-details.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { appRoutes } from './routes';
     MessagesComponent,
     MemberListComponent,
     LikedListComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberDetailsComponent
   ],
   imports: [
     JwtModule.forRoot({
