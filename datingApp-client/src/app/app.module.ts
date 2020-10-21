@@ -1,4 +1,5 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GALLERY_CONFIG, GalleryModule } from 'ng-gallery';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
 import { A11yModule } from '@angular/cdk/a11y';
@@ -137,9 +138,17 @@ import { appRoutes } from './routes';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule, GalleryModule
+
   ],
   providers: [ErrorInterceptorProvider,
+    {
+      provide: GALLERY_CONFIG,
+      useValue: {
+        dots: true,
+      }
+    },
+
   ],
   bootstrap: [AppComponent]
 })
