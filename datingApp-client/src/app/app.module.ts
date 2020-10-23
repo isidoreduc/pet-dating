@@ -1,11 +1,13 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GALLERY_CONFIG, GalleryModule } from 'ng-gallery';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
 import { A11yModule } from '@angular/cdk/a11y';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
@@ -27,7 +29,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -53,6 +54,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailsComponent } from './members/member-details/member-details.component';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NgModule } from '@angular/core';
@@ -75,7 +77,8 @@ import { appRoutes } from './routes';
     MemberListComponent,
     LikedListComponent,
     MemberCardComponent,
-    MemberDetailsComponent
+    MemberDetailsComponent,
+    MemberEditComponent
   ],
   imports: [
     JwtModule.forRoot({
@@ -138,7 +141,7 @@ import { appRoutes } from './routes';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule, GalleryModule
+    FlexLayoutModule, GalleryModule, BsDropdownModule.forRoot()
 
   ],
   providers: [ErrorInterceptorProvider,
@@ -147,6 +150,10 @@ import { appRoutes } from './routes';
       useValue: {
         dots: true,
       }
+    },
+    {
+      provide: MatDialogRef,
+      useValue: {}
     },
 
   ],

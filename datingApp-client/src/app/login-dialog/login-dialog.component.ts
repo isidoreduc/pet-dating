@@ -13,6 +13,7 @@ import { AlertifyService } from './../_services/alertify.service';
 export class LoginDialogComponent {
   model: any = {};
   hide = true;
+  // userName: string;
 
 
   constructor(
@@ -22,6 +23,7 @@ export class LoginDialogComponent {
     private alerify: AlertifyService, private router: Router) { } // injecting data from toolbar
 
 
+
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -29,7 +31,8 @@ export class LoginDialogComponent {
   login = () =>
     this.authService.login(this.model)
       .subscribe(
-        () => {
+        result => {
+          // this.userName = this.model.username;
           this.dialogRef.close();
           this.router.navigate(['/members']);
           this.alerify.success("Logged in successfully");
@@ -44,4 +47,6 @@ export class LoginDialogComponent {
       this.alerify.success("Registration Complete");
       this.dialogRef.close();
     }, error => this.alerify.error(error));
+
+
 }

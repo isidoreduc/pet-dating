@@ -1,37 +1,62 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()" fxHide.gt-sm="true">
     <mat-icon>menu</mat-icon>
   </button>
+
   <a routerLink="/home">
-    pet<strong style="color: #FF4081;">date</strong>
+    pet<strong style="color: var(--my-red);">date</strong>
   </a>
   <div style="padding-left: 4rem;">
-    <button mat-button *ngIf="loggedIn()" routerLink="/members" routerLinkActive="active">Matches</button>
-    <button mat-button *ngIf="loggedIn()" routerLink="/lists" routerLinkActive="active">Lists</button>
-    <button mat-button *ngIf="loggedIn()" routerLink="/messages" routerLinkActive="active">Messages</button>
+    <button mat-button *ngIf="loggedIn()" routerLink="/members" fxHide.lt-md="true">Matches</button>
+    <button mat-button *ngIf="loggedIn()" routerLink="/lists" fxHide.lt-md="true">Lists</button>
+    <button mat-button *ngIf="loggedIn()" routerLink="/messages" fxHide.lt-md="true">Messages</button>
   </div>
   <span class="example-spacer"></span>
 
-  <mat-form-field  *ngIf="loggedIn()" appearance="none"  floatLabel="never" style="padding-right: 3rem;">
-    <mat-label class="dropdown" style="padding-left: 3rem;">
-      <b> Hi, {{authService.decodedToken?.unique_name | titlecase}}</b>
-    </mat-label>
-    <mat-select class="dropdown"  >
-      <mat-option value="edit">Edit user <mat-icon>create</mat-icon></mat-option>
-      <mat-option value="logout" (click)="logout()">Logout <mat-icon>exit_to_app</mat-icon></mat-option>
-    </mat-select>
-  </mat-form-field>
-
+  <button mat-button [matMenuTriggerFor]="menu" *ngIf="loggedIn()" fxHide.lt-md="true">
+    Welcome {{authService.decodedToken?.unique_name | titlecase}} <mat-icon class="ml-1">keyboard_arrow_down</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/member/edit"> <mat-icon class="mr-3">settings</mat-icon> Edit</button>
+    <button mat-menu-item (click)="logout()"> <mat-icon class="mr-3">exit_to_app</mat-icon> Logout</button>
+  </mat-menu>
 
   <div *ngIf="!loggedIn()">
-    <button class="button-margin" (click)="openRegisterDialog()" mat-raised-button>
+    <button class="button-margin" (click)="openRegisterDialog()" mat-raised-button fxHide.lt-md="true">
       Register
     </button>
-    <button class="button-margin" (click)="openLoginDialog()" mat-raised-button color="accent">
+    <button class="button-margin" (click)="openLoginDialog()" mat-raised-button color="accent" fxHide.lt-md="true">
       Login
       <mat-icon>login</mat-icon>
     </button>
   </div>
 </mat-toolbar>
 
+<mat-drawer-container class="example-container" hasBackdrop="true">
+  <mat-drawer #drawer mode="over" >
+    <button mat-icon-button color="primary" (click)="drawer.close()" class="float-right m-2">
+      <mat-icon >close</mat-icon>
+    </button>
+    <div class="mt-5 pt-5" *ngIf="loggedIn()">
+      <button mat-menu-item> <mat-icon class="mr-5">list</mat-icon>Lists</button>
+      <button mat-menu-item> <mat-icon class="mr-5">message</mat-icon>Messages</button>
+      <button mat-menu-item> <mat-icon class="mr-5">supervisor_account</mat-icon>Matches</button>
+      <button mat-menu-item routerLink="/member/edit"> <mat-icon class="mr-5">settings</mat-icon> Edit</button>
+      <button mat-menu-item (click)="logout()"> <mat-icon class="mr-5">exit_to_app</mat-icon> Logout</button>
+      <div class="ml-4 mb-2" style="position:fixed;bottom:0px;width:inherit;">
+        <mat-card class="row" style="box-shadow: none; " fxLayoutAlign="center">
+          <div mat-card-avatar class="mr-5" style="background-image: url('{{user?.photoUrl}}');"></div>
+          <div class="mt-2">{{user?.knownAs}}, {{user?.age}} years</div>
+        </mat-card>
+      </div>
+    </div>
 
+    <div class="mt-5 pt-5" *ngIf="!loggedIn()">
+      <button mat-menu-item (click)="openRegisterDialog()"> <mat-icon class="mr-5">how_to_reg</mat-icon>Register</button>
+      <button mat-menu-item (click)="openLoginDialog()"> <mat-icon class="mr-5">login</mat-icon>Login</button>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

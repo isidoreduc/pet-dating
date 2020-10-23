@@ -1,10 +1,12 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { AlertifyService } from './../_services/alertify.service';
 import { AuthService } from './../_services/auth.service';
+import { IUser } from './../_models/user';
 import { LoginDialogComponent } from './../login-dialog/login-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { UserService } from './../_services/user.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -13,9 +15,16 @@ import { Router } from '@angular/router';
 })
 export class ToolbarComponent implements OnInit {
   isLogin: boolean;
+  user: IUser;
+  // @Input() username: string;
 
   constructor(public dialog: MatDialog, private alertify: AlertifyService,
-    public authService: AuthService, private router: Router) { }
+    public authService: AuthService, private router: Router, private userService: UserService,
+    private activatedRoute: ActivatedRoute) { }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   console.log(changes);
+  // }
 
   openLoginDialog(): void {
     this.isLogin = true;
@@ -40,10 +49,26 @@ export class ToolbarComponent implements OnInit {
   logout = () => {
     localStorage.removeItem('token');
     this.router.navigate(['/']);
+    this.user = null;
     this.alertify.message("Logged out successfully");
   };
 
+
+
+  getLoggedInUser = () => {
+    this.userService.getUsers().subscribe(result => {
+      this.user = result.filter(user => user.username === this.authService.decodedToken.unique_name)[0];
+    }, error => this.alertify.error(error));
+    return this.user;
+  };
+
   ngOnInit(): void {
+    // this.activatedRoute.data.subscribe(data =>
+    //   this.user = data['user']);
+    this.getLoggedInUser();
+    console.log(this.user);
+
   }
+
 
 }
