@@ -12,7 +12,11 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers = (): Observable<IUser[]> => this.http.get<IUser[]>(`${this.baseUrl}users`);
+  getUsers = (): Observable<IUser[]> =>
+    this.http.get<IUser[]>(`${this.baseUrl}users`);
 
-  getUserById = (id: number): Observable<IUser> => this.http.get<IUser>(`${this.baseUrl}users/${id}`);
+  getUserById = (id: number): Observable<IUser> =>
+    this.http.get<IUser>(`${this.baseUrl}users/${id}`);
+
+  editUser = (id: number, user: IUser) => this.http.put(`${this.baseUrl}users/${id}`, user);
 }

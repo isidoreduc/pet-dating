@@ -21,8 +21,9 @@ namespace DatingApp.API.Helpers
             user => user.DateOfBirth.CalculateAge()))
         .ForMember(userForList => userForList.PhotoUrl, cfg => cfg.MapFrom(
             user => user.Photos.FirstOrDefault(p => p.IsMainPhoto).Url));
-
-
+      // we use it in a httppost, so we go from DTO to user (data comes from client -> DTO -> User -> server)
+      // in httpget, data comes from server -> User -> DTO -> client
+      CreateMap<UserForUpdateDTO, User>();
     }
   }
 }

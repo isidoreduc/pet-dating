@@ -2,8 +2,10 @@ import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from './../../_services/alertify.service';
+import { AuthService } from './../../_services/auth.service';
 import { IUser } from 'src/app/_models/user';
 import { NgForm } from '@angular/forms';
+import { UserService } from './../../_services/user.service';
 
 @Component({
   selector: 'app-member-edit',
@@ -20,7 +22,8 @@ export class MemberEditComponent implements OnInit {
     if (this.editForm.dirty)
       $event.returnValue = true;
   }
-  constructor(private router: ActivatedRoute, private _alertify: AlertifyService) { }
+  constructor(private router: ActivatedRoute, private _alertify: AlertifyService,
+    private _userService: UserService, private _authService: AuthService) { }
 
   ngOnInit(): void {
     this.router.data.subscribe(next =>
@@ -30,9 +33,11 @@ export class MemberEditComponent implements OnInit {
   }
 
   updateUser() {
-    console.log(this.user);
-    this._alertify.success("Changes saved successfully");
-    this.editForm.reset(this.user);
+    this._userService.editUser(this._authService.decodedToken.nameid, this.user)
+      .subscribe(next => {
+        this._alertify.success("Changes saved successfully");
+        this.editForm.reset(this.user);
+      }, err => this._alertify.error(err));
   }
 
 }
