@@ -1,1 +1,83 @@
-<p>{{user.knownAs}}</p>
+<!-- use safe navigation operator <?> so we don't get errors - data from server comes with delay, so when the template sees no data, it throws an 'undefined' error'-->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <h1>Your profile</h1>
+    </div>
+    <div  class="col-md-8">
+      <div *ngIf="editForm.dirty" class="alert alert-info">
+        <b>Info:</b> You made some changes to your profile. Consider saving them.
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar style="background-image: url('{{user.photoUrl}}');
+          background-size: cover;"></div>
+          <mat-card-title>{{user.knownAs | titlecase}}</mat-card-title>
+          <mat-card-subtitle>{{user.city}}, {{user.country}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{user.photoUrl}}" alt="Photo user">
+        <mat-card-content>
+          <p><b>Age</b><br>{{user.age}}</p>
+          <p><b>Last active</b><br>{{user.lastActive | date:'medium'}}</p>
+          <p><b>Member since</b><br>{{user.created | date:'medium'}}</p>
+        </mat-card-content>
+        <mat-card-actions class="mb-1 d-flex justify-content-center">
+          <button [disabled]="!editForm.dirty" form="myForm" mat-raised-button color="primary"
+            class="w-75" (click)="updateUser()">
+            SAVE CHANGES
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div class="col-md-8">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Edit Profile">
+          <form #editForm="ngForm" (ngSubmit)="updateUser()" id="myForm" class="container mt-5">
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Description</mat-label>
+              <textarea matInput rows="6" name="introduction" [(ngModel)]="user.introduction">
+                {{user.introduction}}
+              </textarea>
+            </mat-form-field>
+            <mat-form-field appearance="fill"  class="w-100">
+              <mat-label>Looking for</mat-label>
+              <textarea matInput [(ngModel)]="user.lookinFor" name="lookinFor" rows="6">
+                {{user.lookinFor}}
+              </textarea>
+            </mat-form-field>
+            <mat-form-field appearance="fill"  class="w-100">
+              <mat-label>Interests</mat-label>
+              <textarea matInput [(ngModel)]="user.interests" name="interests" rows="6">
+                {{user.interests}}
+            </textarea>
+            </mat-form-field>
+            <div class="d-flex">
+              <mat-form-field appearance="fill" class="w-100 pr-2">
+                <mat-label>City</mat-label>
+                <input matInput [(ngModel)]="user.city" name="city" >
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="w-100 pl-2">
+                <mat-label>Country</mat-label>
+                <input matInput [(ngModel)]="user.country" name="country" >
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-tab>
+
+        <mat-tab label="Edit Photos">
+          <ng-template matTabContent>
+            <div class="container mt-5">
+              <!-- photo editing placeholder -->
+            </div>
+          </ng-template>
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
