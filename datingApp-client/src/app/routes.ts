@@ -4,12 +4,11 @@ import { LikedListComponent } from './liked-list/liked-list.component';
 import { MemberDetailsComponent } from './members/member-details/member-details.component';
 import { MemberDetailsResolver } from './_resolvers/member-details.resolver';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MessagesComponent } from './messages/messages.component';
 import { Routes } from '@angular/router';
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { ToolbarResolver } from './_resolvers/toolbar.resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,8 +23,8 @@ export const appRoutes: Routes = [
         resolve: { user: MemberDetailsResolver }
       },
       {
-        path: 'members/:id', component: ToolbarComponent,
-        resolve: { user: ToolbarResolver }
+        path: 'member/edit', component: MemberEditComponent,
+        resolve: { user: MemberEditResolver }
       },
       { path: 'member/edit', component: MemberEditComponent },
       { path: 'messages', component: MessagesComponent },

@@ -16,15 +16,13 @@ import { UserService } from './../_services/user.service';
 export class ToolbarComponent implements OnInit {
   isLogin: boolean;
   user: IUser;
-  // @Input() username: string;
+
 
   constructor(public dialog: MatDialog, private alertify: AlertifyService,
     public authService: AuthService, private router: Router, private userService: UserService,
     private activatedRoute: ActivatedRoute) { }
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   console.log(changes);
-  // }
+
 
   openLoginDialog(): void {
     this.isLogin = true;
@@ -55,18 +53,13 @@ export class ToolbarComponent implements OnInit {
 
 
 
-  getLoggedInUser = () => {
-    this.userService.getUsers().subscribe(result => {
-      this.user = result.filter(user => user.username === this.authService.decodedToken.unique_name)[0];
-    }, error => this.alertify.error(error));
-    return this.user;
-  };
+
 
   ngOnInit(): void {
     // this.activatedRoute.data.subscribe(data =>
     //   this.user = data['user']);
-    this.getLoggedInUser();
-    console.log(this.user);
+
+
 
   }
 
