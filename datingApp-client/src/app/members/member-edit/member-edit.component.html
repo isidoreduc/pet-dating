@@ -37,22 +37,22 @@
     <div class="col-md-8">
       <mat-tab-group mat-align-tabs="start">
         <mat-tab label="Edit Profile">
-          <form #editForm="ngForm" (ngSubmit)="updateUser()" id="myForm" class="container mt-5">
+          <form #editForm="ngForm" (ngSubmit)="updateUser()" id="myForm" class="container mt-4">
             <mat-form-field appearance="fill" class="w-100">
               <mat-label>Description</mat-label>
-              <textarea matInput rows="6" name="introduction" [(ngModel)]="user.introduction">
+              <textarea matInput rows="8" name="introduction" [(ngModel)]="user.introduction">
                 {{user.introduction}}
               </textarea>
             </mat-form-field>
             <mat-form-field appearance="fill"  class="w-100">
               <mat-label>Looking for</mat-label>
-              <textarea matInput [(ngModel)]="user.lookinFor" name="lookinFor" rows="6">
+              <textarea matInput [(ngModel)]="user.lookinFor" name="lookinFor" rows="8">
                 {{user.lookinFor}}
               </textarea>
             </mat-form-field>
             <mat-form-field appearance="fill"  class="w-100">
               <mat-label>Interests</mat-label>
-              <textarea matInput [(ngModel)]="user.interests" name="interests" rows="6">
+              <textarea matInput [(ngModel)]="user.interests" name="interests" rows="8">
                 {{user.interests}}
             </textarea>
             </mat-form-field>

@@ -8,6 +8,7 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MessagesComponent } from './messages/messages.component';
+import { NotifyUnsaved } from './_guards/notify-unsaved.guard.ts.guard';
 import { Routes } from '@angular/router';
 
 export const appRoutes: Routes = [
@@ -24,7 +25,7 @@ export const appRoutes: Routes = [
       },
       {
         path: 'member/edit', component: MemberEditComponent,
-        resolve: { user: MemberEditResolver }
+        resolve: { user: MemberEditResolver }, canDeactivate: [NotifyUnsaved]
       },
       { path: 'member/edit', component: MemberEditComponent },
       { path: 'messages', component: MessagesComponent },
