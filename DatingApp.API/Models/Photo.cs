@@ -10,6 +10,7 @@ namespace DatingApp.API.Models
     public string Description { get; set; }
     public DateTime DateAdded { get; set; }
     public bool IsMainPhoto { get; set; }
+    public string PublicId { get; set; }
 
     // without these 2 props, EF creates a default relationship, but does not cascade delete on user
     // removal. photos stay
