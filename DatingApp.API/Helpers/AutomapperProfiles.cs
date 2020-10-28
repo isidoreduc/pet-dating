@@ -24,6 +24,8 @@ namespace DatingApp.API.Helpers
       // we use it in a httppost, so we go from DTO to user (data comes from client -> DTO -> User -> server)
       // in httpget, data comes from server -> User -> DTO -> client
       CreateMap<UserForUpdateDTO, User>();
+      CreateMap<Photo, PhotoForReturnDTO>();
+      CreateMap<PhotoForCreationDTO, Photo>();
     }
   }
 }

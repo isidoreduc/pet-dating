@@ -35,6 +35,7 @@ namespace DatingApp.API
       #region swagger config
       services.AddSwaggerGen(c =>
       {
+        c.SchemaGeneratorOptions.CustomTypeMappings.Add(typeof(IFormFile), () => new OpenApiSchema() { Type = "file", Format = "binary" });
         c.SwaggerDoc("v1", new OpenApiInfo
         {
           Title = "PetDating API",

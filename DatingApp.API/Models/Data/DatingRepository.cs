@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,11 @@ namespace DatingApp.API.Models.Data
       _ctx.Remove(entity);
     }
 
+    public async Task<Photo> GetPhoto(int id)
+    {
+      return await _ctx.Photos.FirstOrDefaultAsync(p => p.Id == id);
+    }
+
     // async - there is a wire connection call to database
     public async Task<User> GetUserById(int id)
     {
@@ -37,7 +43,7 @@ namespace DatingApp.API.Models.Data
 
     public async Task<bool> SaveAll()
     {
-        return await _ctx.SaveChangesAsync() > 0;
+      return await _ctx.SaveChangesAsync() > 0;
     }
   }
 }
