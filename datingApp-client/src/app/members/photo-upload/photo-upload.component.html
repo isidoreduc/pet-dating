@@ -1,16 +1,25 @@
-<div class="row">
-  <div class="col-md-2" *ngFor="let item of photosInput">
-    <img src="{{item.url}}" alt="photo" class="img-thumbnail">
-    <div class="text-center">
-      <button mat-icon-button matTooltip="Main photo?">
-        <mat-icon>camera_alt</mat-icon>
-      </button>
-      <button mat-icon-button color="warn" matTooltip="Delete">
-        <mat-icon>delete</mat-icon>
-      </button>
+<div>
+  <!-- photo uploader -->
+  <app-photo-uploader
+    [URL]="url" [TOKEN]="token" [PHOTOS]="photosInput"
+    class="mb-5"
+    >
+  </app-photo-uploader>
+
+  <!-- photos -->
+  <div class="row my-5">
+    <div class="col-4 col-sm-3" *ngFor="let item of photosInput">
+      <img src="{{item.url}}" alt="photo" class="img-thumbnail"
+        style="min-width: 100px !important; height: 100px;">
+      <div class="text-left">
+        <button mat-icon-button matTooltip="Main photo?">
+          <mat-icon>camera_alt</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- photo uploader -->
-<app-photo-uploader [URL]="url" [TOKEN]="token"></app-photo-uploader>
+</div>

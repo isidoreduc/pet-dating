@@ -1,12 +1,20 @@
 .my-drop-zone {
-  border: dotted 3px lightgray;
+  border: dotted 3px var(--my-mauve);
 }
 
 .nv-file-over {
-  border: dotted 3px red;
+  border: dotted 3px var(--my-red);
 }
 
 /* Default class applied to drop zones on over */
 .another-file-over-class {
   border: dotted 3px green;
+}
+
+.stupid-input {
+  color: transparent;
+}
+
+.stupid-input:focus {
+  outline: none;
 }
