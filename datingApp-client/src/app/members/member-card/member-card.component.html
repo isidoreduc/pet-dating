@@ -14,8 +14,10 @@
     </p>
   </mat-card-content>
   <mat-card-actions fxLayoutAlign="space-around" class="mb-1">
-    <button mat-icon-button [routerLink]="['/members/', member.id]"><mat-icon>portrait</mat-icon></button>
-    <button mat-icon-button><mat-icon>chat</mat-icon></button>
-    <button mat-icon-button color="accent"><mat-icon>favorite</mat-icon></button>
+    <button mat-icon-button [routerLink]="['/members/', member.id]" matTooltip="Details">
+      <mat-icon>portrait</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Chat"><mat-icon>chat</mat-icon></button>
+    <button mat-icon-button color="accent" matTooltip="Like"><mat-icon>favorite</mat-icon></button>
   </mat-card-actions>
 </mat-card>

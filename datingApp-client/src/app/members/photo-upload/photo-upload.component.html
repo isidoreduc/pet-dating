@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-md-2" *ngFor="let item of photosInput">
+    <img src="{{item.url}}" alt="photo" class="img-thumbnail">
+    <div class="text-center">
+      <button mat-icon-button matTooltip="Main photo?">
+        <mat-icon>camera_alt</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" matTooltip="Delete">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- photo uploader -->
+<app-photo-uploader [URL]="url" [TOKEN]="token"></app-photo-uploader>

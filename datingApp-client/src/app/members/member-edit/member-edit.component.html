@@ -72,7 +72,7 @@
         <mat-tab label="Edit Photos">
           <ng-template matTabContent>
             <div class="container mt-5">
-              <!-- photo editing placeholder -->
+              <app-photo-upload [photosInput]="user.photos"></app-photo-upload>
             </div>
           </ng-template>
         </mat-tab>

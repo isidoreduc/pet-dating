@@ -14,6 +14,7 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { FileUploadModule } from 'ng2-file-upload';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -59,6 +60,8 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MessagesComponent } from './messages/messages.component';
 import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { PhotoUploadComponent } from './members/photo-upload/photo-upload.component';
+import { PhotoUploaderComponent } from './_shared/photo-uploader/photo-uploader.component';
 import { PortalModule } from '@angular/cdk/portal';
 import { RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -78,7 +81,9 @@ import { appRoutes } from './routes';
     LikedListComponent,
     MemberCardComponent,
     MemberDetailsComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoUploadComponent,
+    PhotoUploaderComponent
   ],
   imports: [
     JwtModule.forRoot({
@@ -141,7 +146,7 @@ import { appRoutes } from './routes';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule, GalleryModule, BsDropdownModule.forRoot()
+    FlexLayoutModule, GalleryModule, BsDropdownModule.forRoot(), FileUploadModule
 
   ],
   providers: [ErrorInterceptorProvider,
