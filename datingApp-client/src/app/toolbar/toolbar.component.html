@@ -6,10 +6,10 @@
   <a routerLink="/home">
     pet<strong style="color: var(--my-red);">date</strong>
   </a>
-  <div style="padding-left: 4rem;">
-    <button mat-button *ngIf="loggedIn()" routerLink="/members" fxHide.lt-md="true">Matches</button>
-    <button mat-button *ngIf="loggedIn()" routerLink="/lists" fxHide.lt-md="true">Lists</button>
-    <button mat-button *ngIf="loggedIn()" routerLink="/messages" fxHide.lt-md="true">Messages</button>
+  <div style="padding-left: 4rem;" *ngIf="loggedIn()" fxHide.lt-md="true">
+    <button mat-button  routerLink="/members">Matches</button>
+    <button mat-button  routerLink="/lists">Lists</button>
+    <button mat-button  routerLink="/messages">Messages</button>
   </div>
   <span class="example-spacer"></span>
 
@@ -32,15 +32,22 @@
   </div>
 </mat-toolbar>
 
+<!-- Toolbar menu drawer when screen small -->
 <mat-drawer-container class="example-container" hasBackdrop="true">
   <mat-drawer #drawer mode="over" >
     <button mat-icon-button color="primary" (click)="drawer.close()" class="float-right m-2">
       <mat-icon >close</mat-icon>
     </button>
     <div class="mt-5 pt-5" *ngIf="loggedIn()">
-      <button mat-menu-item> <mat-icon class="mr-5">list</mat-icon>Lists</button>
-      <button mat-menu-item> <mat-icon class="mr-5">message</mat-icon>Messages</button>
-      <button mat-menu-item> <mat-icon class="mr-5">supervisor_account</mat-icon>Matches</button>
+      <button mat-menu-item>
+        <mat-icon class="mr-5">list</mat-icon>Lists
+      </button>
+      <button mat-menu-item>
+        <mat-icon class="mr-5">message</mat-icon>Messages
+      </button>
+      <button mat-menu-item routerLink="/members">
+        <mat-icon class="mr-5" >supervisor_account</mat-icon>Matches
+      </button>
       <button mat-menu-item routerLink="/member/edit"> <mat-icon class="mr-5">settings</mat-icon> Edit</button>
       <button mat-menu-item (click)="logout()"> <mat-icon class="mr-5">exit_to_app</mat-icon> Logout</button>
       <div class="ml-4 mb-2" style="position:fixed;bottom:0px;width:inherit;">
@@ -52,8 +59,12 @@
     </div>
 
     <div class="mt-5 pt-5" *ngIf="!loggedIn()">
-      <button mat-menu-item (click)="openRegisterDialog()"> <mat-icon class="mr-5">how_to_reg</mat-icon>Register</button>
-      <button mat-menu-item (click)="openLoginDialog()"> <mat-icon class="mr-5">login</mat-icon>Login</button>
+      <button mat-menu-item (click)="openRegisterDialog()">
+        <mat-icon class="mr-5">how_to_reg</mat-icon>Register
+      </button>
+      <button mat-menu-item (click)="openLoginDialog()">
+        <mat-icon class="mr-5">login</mat-icon>Login
+      </button>
     </div>
   </mat-drawer>
   <mat-drawer-content>

@@ -1,4 +1,4 @@
-<mat-card class="example-card mb-5">
+<mat-card class="example-card mb-5" [routerLink]="['/members/', member.id]">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image" style="background-image: url('{{member.photoUrl}}');"></div>
     <mat-card-title >
@@ -13,11 +13,11 @@
       {{member.introduction}}
     </p>
   </mat-card-content>
-  <mat-card-actions fxLayoutAlign="space-around" class="mb-1">
-    <button mat-icon-button [routerLink]="['/members/', member.id]" matTooltip="Details">
+  <mat-card-actions fxLayoutAlign="end" class="mb-3">
+    <!-- <button mat-mini-fab color="primary" [routerLink]="['/members/', member.id]" matTooltip="Details">
       <mat-icon>portrait</mat-icon>
-    </button>
-    <button mat-icon-button matTooltip="Chat"><mat-icon>chat</mat-icon></button>
-    <button mat-icon-button color="accent" matTooltip="Like"><mat-icon>favorite</mat-icon></button>
+    </button> -->
+    <button mat-mini-fab color="primary" matTooltip="Chat" class="mr-3"><mat-icon>chat</mat-icon></button>
+    <button mat-mini-fab color="accent" matTooltip="Like" class="mr-3"><mat-icon>favorite</mat-icon></button>
   </mat-card-actions>
 </mat-card>
