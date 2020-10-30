@@ -20,6 +20,11 @@ export class UserService {
 
   editUser = (id: number, user: IUser) => this.http.put(`${this.baseUrl}users/${id}`, user);
 
-  setMainPhoto = (userId: number, photoId: number) =>
+  updateMainPhoto = (userId: number, photoId: number) =>
     this.http.post(`${this.baseUrl}users/${userId}/photos/${photoId}/setMain`, {});
+
+  deletePhoto = (userId: number, photoId: number) =>
+    this.http.delete(`${this.baseUrl}users/${userId}/photos/${photoId}`);
+
+
 }
