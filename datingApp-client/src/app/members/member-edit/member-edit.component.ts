@@ -44,7 +44,9 @@ export class MemberEditComponent implements OnInit {
   getPhotosSortedByDateAdded = () =>
     this.user.photos.sort((a, b) => 0 - (a.dateAdded > b.dateAdded ? 1 : -1));
 
-
+  getNewMainPhoto = (event: string) => {
+    this.user.photoUrl = event;
+  };
 
   // Ascending
   // values.sort((a,b) => 0 - (a > b ? -1 : 1));

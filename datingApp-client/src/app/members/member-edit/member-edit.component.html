@@ -72,7 +72,9 @@
         <mat-tab label="Edit Photos">
           <ng-template matTabContent>
             <div class="container-fluid mt-5">
-              <app-photo-upload [photosInput]="getPhotosSortedByDateAdded()"></app-photo-upload>
+              <app-photo-upload
+                [photosInput]="getPhotosSortedByDateAdded()"
+                (mainPhotoOutput)="getNewMainPhoto($event)"></app-photo-upload>
             </div>
           </ng-template>
         </mat-tab>

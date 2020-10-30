@@ -19,4 +19,7 @@ export class UserService {
     this.http.get<IUser>(`${this.baseUrl}users/${id}`);
 
   editUser = (id: number, user: IUser) => this.http.put(`${this.baseUrl}users/${id}`, user);
+
+  setMainPhoto = (userId: number, photoId: number) =>
+    this.http.post(`${this.baseUrl}users/${userId}/photos/${photoId}/setMain`, {});
 }

@@ -12,7 +12,10 @@
       <img src="{{item.url}}" alt="photo" class="img-thumbnail"
         style="min-width: 100px !important; height: 100px;">
       <div class="text-left">
-        <button mat-icon-button matTooltip="Main photo?">
+        <button mat-icon-button matTooltip="Set as profile photo"
+          (click)="setMainPhoto(item)"
+          [disabled]="item.isMainPhoto"
+          [color]="item.isMainPhoto? 'accent' : ''">
           <mat-icon>camera_alt</mat-icon>
         </button>
         <button mat-icon-button matTooltip="Delete">
