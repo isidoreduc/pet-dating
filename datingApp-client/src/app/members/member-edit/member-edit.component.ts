@@ -40,4 +40,15 @@ export class MemberEditComponent implements OnInit {
       }, err => this._alertify.error(err));
   }
 
+  // recent first
+  getPhotosSortedByDateAdded = () =>
+    this.user.photos.sort((a, b) => 0 - (a.dateAdded > b.dateAdded ? 1 : -1));
+
+
+
+  // Ascending
+  // values.sort((a,b) => 0 - (a > b ? -1 : 1));
+
+  // Descending
+  //values.sort((a,b) => 0 - (a > b ? 1 : -1));
 }
