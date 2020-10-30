@@ -46,6 +46,9 @@ export class ToolbarComponent implements OnInit {
 
   logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.authService.decodedToken = null;
+    this.authService.currentUser = null;
     this.router.navigate(['/']);
     this.user = null;
     this.alertify.message("Logged out successfully");

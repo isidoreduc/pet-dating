@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using AutoMapper;
 
 namespace DatingApp.API.Controllers
 {
@@ -18,8 +19,10 @@ namespace DatingApp.API.Controllers
   {
     private readonly IAuthRepository _authRepository;
     private readonly IConfiguration _config;
-    public AuthController(IAuthRepository authRepository, IConfiguration config)
+    private readonly IMapper _mapper;
+    public AuthController(IAuthRepository authRepository, IConfiguration config, IMapper mapper)
     {
+      _mapper = mapper;
       _config = config;
       _authRepository = authRepository;
     }
@@ -51,8 +54,13 @@ namespace DatingApp.API.Controllers
       // token builder
       var tokenHandler = new JwtSecurityTokenHandler();
       var token = tokenHandler.CreateToken(tokenDescriptor);
+      var loggedUser = _mapper.Map<UserForListDTO>(userRegistered);
 
-      return Ok(new { token = tokenHandler.WriteToken(token) });
+      return Ok(new
+      {
+        token = tokenHandler.WriteToken(token),
+        loggedUser
+      });
     }
 
     [HttpPost("register")]

@@ -13,13 +13,18 @@
   </div>
   <span class="example-spacer"></span>
 
-  <button mat-button [matMenuTriggerFor]="menu" *ngIf="loggedIn()" fxHide.lt-md="true">
-    Welcome {{authService.decodedToken?.unique_name | titlecase}} <mat-icon class="ml-1">keyboard_arrow_down</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="/member/edit"> <mat-icon class="mr-3">settings</mat-icon> Edit</button>
-    <button mat-menu-item (click)="logout()"> <mat-icon class="mr-3">exit_to_app</mat-icon> Logout</button>
-  </mat-menu>
+  <div fxHide.lt-md="true">
+    <span><img src="{{authService.currentUser.photoUrl}}"
+      style="max-height: 30px; border: 1px solid white;" alt="">
+    </span>
+    <button mat-button [matMenuTriggerFor]="menu" *ngIf="loggedIn()" >
+      Welcome {{authService.decodedToken?.unique_name | titlecase}} <mat-icon class="ml-1">keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/member/edit"> <mat-icon class="mr-3">settings</mat-icon> Edit</button>
+      <button mat-menu-item (click)="logout()"> <mat-icon class="mr-3">exit_to_app</mat-icon> Logout</button>
+    </mat-menu>
+  </div>
 
   <div *ngIf="!loggedIn()">
     <button class="button-margin" (click)="openRegisterDialog()" mat-raised-button fxHide.lt-md="true">
@@ -46,15 +51,15 @@
         <mat-icon class="mr-5">message</mat-icon>Messages
       </button>
       <button mat-menu-item routerLink="/members">
-        <mat-icon class="mr-5" >supervisor_account</mat-icon>Matches
+        <mat-icon class="mr-5">supervisor_account</mat-icon>Matches
       </button>
       <button mat-menu-item routerLink="/member/edit"> <mat-icon class="mr-5">settings</mat-icon> Edit</button>
       <button mat-menu-item (click)="logout()"> <mat-icon class="mr-5">exit_to_app</mat-icon> Logout</button>
       <div class="ml-4 mb-2" style="position:fixed;bottom:0px;width:inherit;">
-        <mat-card class="row" style="box-shadow: none; " fxLayoutAlign="center">
-          <div mat-card-avatar class="mr-5" style="background-image: url('{{user?.photoUrl}}');"></div>
-          <div class="mt-2">{{user?.knownAs}}, {{user?.age}} years</div>
-        </mat-card>
+        <span class="row" style="box-shadow: none; " fxLayoutAlign="center">
+          <img src="{{authService.currentUser.photoUrl}}" class="mr-5" style="max-height: 30px;border: 1px solid white;">
+          <div class="mt-2"><b>{{authService.currentUser.knownAs.toUpperCase()}}</b> - {{authService.currentUser.age}} years</div>
+        </span>
       </div>
     </div>
 
