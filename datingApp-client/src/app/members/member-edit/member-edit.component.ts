@@ -14,6 +14,7 @@ import { UserService } from './../../_services/user.service';
 })
 export class MemberEditComponent implements OnInit {
   user: IUser;
+  photoUrl: string;
   // referencing the template reference editForm
   @ViewChild('editForm') editForm: NgForm;
   // listens for browser actions (like close button event etc.) when there are unsaved changes
@@ -30,6 +31,8 @@ export class MemberEditComponent implements OnInit {
       this.user = next['user'],
       err => console.log(err)
     );
+    this._authService.currentPhotoUrl.subscribe(cpu =>
+      this.photoUrl = cpu, err => console.log(err));
   }
 
   updateUser() {

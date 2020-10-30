@@ -13,11 +13,11 @@
   </div>
   <span class="example-spacer"></span>
 
-  <div fxHide.lt-md="true">
-    <span><img src="{{authService.currentUser.photoUrl}}"
-      style="max-height: 30px; border: 1px solid white;" alt="">
+  <div fxHide.lt-md="true" *ngIf="loggedIn()">
+    <span><img src="{{photoUrl}}"
+      style="max-height: 30px;  border-radius: 50%;" alt="">
     </span>
-    <button mat-button [matMenuTriggerFor]="menu" *ngIf="loggedIn()" >
+    <button mat-button [matMenuTriggerFor]="menu"  >
       Welcome {{authService.decodedToken?.unique_name | titlecase}} <mat-icon class="ml-1">keyboard_arrow_down</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
@@ -55,9 +55,9 @@
       </button>
       <button mat-menu-item routerLink="/member/edit"> <mat-icon class="mr-5">settings</mat-icon> Edit</button>
       <button mat-menu-item (click)="logout()"> <mat-icon class="mr-5">exit_to_app</mat-icon> Logout</button>
-      <div class="ml-4 mb-2" style="position:fixed;bottom:0px;width:inherit;">
-        <span class="row" style="box-shadow: none; " fxLayoutAlign="center">
-          <img src="{{authService.currentUser.photoUrl}}" class="mr-5" style="max-height: 30px;border: 1px solid white;">
+      <div class="ml-4 mb-2" style="position:fixed;bottom:20px;width:inherit;">
+        <span class="row"  fxLayoutAlign="center">
+          <img src="{{photoUrl}}" class="mx-3" style="max-height: 30px;border: 1px solid var(--my-mauve); border-radius: 50%;">
           <div class="mt-2"><b>{{authService.currentUser.knownAs.toUpperCase()}}</b> - {{authService.currentUser.age}} years</div>
         </span>
       </div>

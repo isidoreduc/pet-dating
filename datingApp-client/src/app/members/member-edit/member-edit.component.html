@@ -14,12 +14,12 @@
     <div class="col-md-4">
       <mat-card class="example-card">
         <mat-card-header>
-          <div mat-card-avatar style="background-image: url('{{user.photoUrl}}');
+          <div mat-card-avatar style="background-image: url('{{photoUrl}}');
           background-size: cover;"></div>
           <mat-card-title>{{user.knownAs | titlecase}}</mat-card-title>
           <mat-card-subtitle>{{user.city}}, {{user.country}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="{{user.photoUrl}}" alt="Photo user">
+        <img mat-card-image src="{{photoUrl}}" alt="Photo user">
         <mat-card-content>
           <p><b>Age</b><br>{{user.age}}</p>
           <p><b>Last active</b><br>{{user.lastActive | date:'medium'}}</p>

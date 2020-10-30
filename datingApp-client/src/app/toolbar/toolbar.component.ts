@@ -16,6 +16,12 @@ import { UserService } from './../_services/user.service';
 export class ToolbarComponent implements OnInit {
   isLogin: boolean;
   user: IUser;
+  photoUrl: string;
+
+  ngOnInit(): void {
+    this.authService.currentPhotoUrl.subscribe(pu =>
+      this.photoUrl = pu, err => console.log(err));
+  }
 
 
   constructor(public dialog: MatDialog, private alertify: AlertifyService,
@@ -58,13 +64,7 @@ export class ToolbarComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
-    // this.activatedRoute.data.subscribe(data =>
-    //   this.user = data['user']);
 
-
-
-  }
 
 
 }

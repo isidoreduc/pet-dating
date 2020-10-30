@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from './../_models/user';
 import { Injectable } from '@angular/core';
@@ -13,8 +14,13 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   decodedToken: any;
   currentUser: IUser;
+  $photoUrl = new BehaviorSubject<string>('');
+  currentPhotoUrl = this.$photoUrl.asObservable();
 
   constructor(private http: HttpClient) { }
+
+  changeMemberPhoto = (photoUrl: string) =>
+    this.$photoUrl.next(photoUrl);
 
   login = (model: any) =>
     this.http.post(`${this.baseUrl}login`, model).pipe(
@@ -24,6 +30,8 @@ export class AuthService {
           this.decodedToken = this.jwtHelper.decodeToken(response.token);
           localStorage.setItem('loggedUser', JSON.stringify(response.loggedUser));
           this.currentUser = response.loggedUser;
+
+          this.changeMemberPhoto(this.currentUser.photoUrl);
         }
       })
     );

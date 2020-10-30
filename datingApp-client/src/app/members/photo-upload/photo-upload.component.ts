@@ -29,7 +29,12 @@ export class PhotoUploadComponent implements OnInit {
         this.currentMainPhoto = this.photosInput.filter(p => p.isMainPhoto)[0];
         this.currentMainPhoto.isMainPhoto = false;
         photo.isMainPhoto = true;
-        this.mainPhotoOutput.emit(photo.url);
+        // this.mainPhotoOutput.emit(photo.url);
+        // subscribe to observable photoUrl
+        this._authServ.changeMemberPhoto(photo.url);
+        // persist change in localStorage
+        this._authServ.currentUser.photoUrl = photo.url;
+        localStorage.setItem('loggedUser', JSON.stringify(this._authServ.currentUser));
       }, err => console.log(err));
 
 
