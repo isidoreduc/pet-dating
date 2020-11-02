@@ -1,15 +1,15 @@
 .example-form-login {
-  margin: 1rem 0 1rem;
-  padding: 1rem 0 1rem;
+  // margin: 1rem;
+  // padding: 1rem;
   max-width: 500px;
   width: 100%;
 }
 
 .example-form-register {
-  margin: 1rem 0 1rem;
-  padding: 1rem 0 1rem;
-  max-width: 500px;
-  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 2.75rem;
+  max-height: 800px;
 }
 
 .example-full-width {
@@ -19,10 +19,11 @@
 .title-box {
   background-color: #3F51B5;
   color: white;
-  margin-bottom: 4rem;
-  padding: 2rem 2rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
 }
 
 .button-group {
-  margin-top: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }

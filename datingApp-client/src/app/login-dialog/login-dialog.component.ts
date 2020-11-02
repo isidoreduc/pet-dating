@@ -12,9 +12,9 @@ import { AlertifyService } from './../_services/alertify.service';
   styleUrls: ['./login-dialog.component.scss']
 })
 export class LoginDialogComponent implements OnInit {
-  model: any = {};
   hide = true;
   registerForm = new FormGroup({});
+  user: any = {};
 
 
   constructor(
@@ -30,6 +30,11 @@ export class LoginDialogComponent implements OnInit {
         username: ['', [Validators.required, Validators.minLength(3)]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required]],
+        gender: ['Girl'],
+        knownAs: ['', [Validators.required]],
+        dateOfBirth: [new Date(), [Validators.required]],
+        city: ['', [Validators.required]],
+        country: ['', [Validators.required]],
       },
       { validator: this.passwordMatchValidator }
     );
@@ -46,7 +51,7 @@ export class LoginDialogComponent implements OnInit {
   };
 
   login = () =>
-    this.authService.login(this.model)
+    this.authService.login(this.user)
       .subscribe(
         result => {
           // this.userName = this.model.username;
@@ -59,12 +64,21 @@ export class LoginDialogComponent implements OnInit {
 
 
 
-  register = () =>
-    // this.authService.register(this.model)
-    //   .subscribe(() => {
-    //     this.alerify.success("Registration Complete");
-    //     this.dialogRef.close();
-    //   }, error => this.alerify.error(error));
-    console.log(this.registerForm.value);
+  register = () => {
+    if (this.registerForm.valid) {
+      this.user = Object.assign({}, this.registerForm.value);
+      this.authService.register(this.user)
+        .subscribe(() => {
+          this.alerify.success("Registration Complete");
+          this.dialogRef.close();
+        },
+          error => this.alerify.error(error)),
+        () => this.authService.login(this.user).subscribe(() =>
+          this.router.navigate(['/members'])
+        );
+    }
+    // console.log(this.registerForm.value);
+  };
+
 
 }

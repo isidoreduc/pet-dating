@@ -41,7 +41,7 @@ export class ToolbarComponent implements OnInit {
   openRegisterDialog(): void {
     this.isLogin = false;
     this.dialog.open(LoginDialogComponent, {
-      width: '450px', height: '600px',
+      width: '450px', height: '750px',
       data: { isLogin: this.isLogin }
     });
   }

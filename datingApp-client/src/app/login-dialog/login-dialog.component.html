@@ -6,84 +6,125 @@
   <form #loginForm="ngForm" class="example-form-login" *ngIf="data.isLogin" (ngSubmit)="login()">
     <mat-form-field class="example-full-width">
       <mat-label>Username</mat-label>
-      <input matInput [(ngModel)]="model.username" name="username" #username placeholder="Ex. John Hagipoulos" required>
+      <input matInput [(ngModel)]="user.username" name="username" #username placeholder="Ex. John Hagipoulos" required>
     </mat-form-field>
     <br />
     <mat-form-field class="example-full-width">
       <mat-label>Password</mat-label>
-      <input matInput  [(ngModel)]="model.password" name="password" #password placeholder="Min. 6 characters..." [type]="hide ? 'password' : 'text'" required>
+      <input matInput [(ngModel)]="user.password" name="password" #password placeholder="Min. 6 characters..." [type]="hide ? 'password' : 'text'" required>
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </mat-form-field>
 
     <div mat-dialog-actions fxLayoutAlign="end" class="button-group">
       <button mat-button (click)="onNoClick()">Close</button>
-      <button mat-raised-button color="primary" type="submit"
-        [disabled]="!loginForm.valid">Submit</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Submit</button>
     </div>
   </form>
 </div>
 
-<div mat-dialog-content *ngIf="!data.isLogin">
+<div mat-dialog-content *ngIf="!data.isLogin" style="max-height:800px">
   <div fxLayoutAlign="center" class="title-box">
     <mat-card-title color="accent">Register</mat-card-title>
   </div>
   <!-- register reactive form -->
-  <form [formGroup]="registerForm" class="example-form-register"
-    (ngSubmit)="register()"
-    >
+  <form [formGroup]="registerForm" class="example-form-register" (ngSubmit)="register()">
+    <!-- gender -->
+    <!-- <mat-form-field class="example-full-width">
+      <mat-label>Gender</mat-label>
+      <input matInput formControlName="gender" placeholder="Ex. John Hagipoulos">
+    </mat-form-field> -->
+
+    <mat-radio-group formControlName="gender">
+      <span>I am a:</span>
+      <mat-radio-button value="Girl" class="pl-3">Girl</mat-radio-button>
+      <mat-radio-button value="Guy" class="pl-3">Guy</mat-radio-button>
+    </mat-radio-group>
+
+    <!-- username -->
     <mat-form-field class="example-full-width">
       <mat-label>Username</mat-label>
-      <input matInput formControlName="username" id="username" placeholder="Ex. John Hagipoulos" >
+      <input matInput formControlName="username" placeholder="Ex. John Hagipoulos">
       <mat-hint *ngIf="registerForm.get('username').hasError('required') &&
-        registerForm.get('username').touched"
-        style="color: var(--my-warn);">
+        registerForm.get('username').touched" style="color: var(--my-warn);">
         Username is required
       </mat-hint>
       <mat-hint *ngIf="registerForm.get('username').hasError('minlength') &&
-        registerForm.get('username').touched"
-        style="color: var(--my-warn);">
+        registerForm.get('username').touched" style="color: var(--my-warn);">
         Username must be min. 3 characters
       </mat-hint>
     </mat-form-field>
 
+    <!-- knownAs -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Known As</mat-label>
+      <input matInput formControlName="knownAs" placeholder="Ex. John Hagipoulos">
+      <mat-hint *ngIf="registerForm.get('knownAs').hasError('required') &&
+      registerForm.get('knownAs').touched" style="color: var(--my-warn);">
+        Known As is required
+      </mat-hint>
+    </mat-form-field>
+
+    <!-- dateOfBirth -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Date of birth</mat-label>
+      <input matInput formControlName="dateOfBirth" [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-hint *ngIf="registerForm.get('dateOfBirth').hasError('required') &&
+      registerForm.get('dateOfBirth').touched" style="color: var(--my-warn);">
+        Date of birth is required
+      </mat-hint>
+    </mat-form-field>
+
+    <!-- city -->
+    <mat-form-field class="example-full-width">
+      <mat-label>City</mat-label>
+      <input matInput formControlName="city" placeholder="Ex. John Hagipoulos">
+      <mat-hint *ngIf="registerForm.get('city').hasError('required') &&
+      registerForm.get('city').touched" style="color: var(--my-warn);">
+        City is required
+      </mat-hint>
+    </mat-form-field>
+
+    <!-- country -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Country</mat-label>
+      <input matInput formControlName="country" placeholder="Ex. John Hagipoulos">
+      <mat-hint *ngIf="registerForm.get('country').hasError('required') &&
+      registerForm.get('country').touched" style="color: var(--my-warn);">
+        Country is required
+      </mat-hint>
+    </mat-form-field>
+
+    <!-- pass -->
     <mat-form-field class="example-full-width">
       <mat-label>Password</mat-label>
-      <input matInput formControlName="password" id="password" placeholder="Min. 6 characters..."
-        [type]="hide ? 'password' : 'text'" >
+      <input matInput formControlName="password" placeholder="Min. 6 characters..." [type]="hide ? 'password' : 'text'">
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       <mat-hint *ngIf="registerForm.get('password').hasError('required') &&
-        registerForm.get('password').touched"
-        style="color: var(--my-warn);">
+        registerForm.get('password').touched" style="color: var(--my-warn);">
         Password is required
       </mat-hint>
       <mat-hint *ngIf="registerForm.get('password').hasError('minlength') &&
-        registerForm.get('password').touched"
-        style="color: var(--my-warn);">
+        registerForm.get('password').touched" style="color: var(--my-warn);">
         Password must have at least 6 characters
       </mat-hint>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" >
+    <!-- confirmPass -->
+    <mat-form-field class="example-full-width">
       <mat-label>Confirm Password</mat-label>
-      <input matInput  formControlName="confirmPassword" id="confirmPassword" placeholder="Confirm password"
-        [type]="hide ? 'password' : 'text'" >
+      <input matInput formControlName="confirmPassword" placeholder="Confirm password" [type]="hide ? 'password' : 'text'">
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      <!-- <mat-hint *ngIf="registerForm.get('confirmPassword').hasError('required') &&
-        registerForm.get('confirmPassword').touched"
-        style="color: var(--my-warn);">
-        Password is required
-      </mat-hint> -->
       <mat-hint *ngIf="registerForm.hasError('mismatch') &&
-        registerForm.get('confirmPassword').touched"
-        style="color: var(--my-warn);">
+        registerForm.get('confirmPassword').touched" style="color: var(--my-warn);">
         Passwords must match
       </mat-hint>
     </mat-form-field>
 
     <div mat-dialog-actions fxLayoutAlign="end" class="button-group">
       <button mat-button (click)="onNoClick()">Close</button>
-      <button mat-raised-button color="primary" type="submit"
-        [disabled]="!registerForm.valid">Submit</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Submit</button>
     </div>
   </form>
 </div>

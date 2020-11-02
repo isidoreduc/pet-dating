@@ -37,8 +37,8 @@ export class AuthService {
     );
 
 
-  register = (model: any) =>
-    this.http.post(`${this.baseUrl}register`, model);
+  register = (user: IUser) =>
+    this.http.post(`${this.baseUrl}register`, user);
 
   loggedIn = (): boolean =>
     !this.jwtHelper.isTokenExpired(localStorage.getItem("token"));

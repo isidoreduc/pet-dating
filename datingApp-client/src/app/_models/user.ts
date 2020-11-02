@@ -3,6 +3,7 @@ import { IPhoto } from './photo';
 export interface IUser {
   id: number;
   username: string;
+  password: string;
   gender: string;
   age: number;
   knownAs: string;
