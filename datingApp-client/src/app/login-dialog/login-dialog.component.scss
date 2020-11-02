@@ -1,7 +1,13 @@
-.example-form {
+.example-form-login {
   margin: 1rem 0 1rem;
   padding: 1rem 0 1rem;
-  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-form-register {
+  margin: 1rem 0 1rem;
+  padding: 1rem 0 1rem;
   max-width: 500px;
   width: 100%;
 }
@@ -17,6 +23,6 @@
   padding: 2rem 2rem;
 }
 
-.button-group{
+.button-group {
   margin-top: 4rem;
 }

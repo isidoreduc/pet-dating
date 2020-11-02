@@ -66,13 +66,11 @@ import { PortalModule } from '@angular/cdk/portal';
 import { RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { ValuesComponent } from './values/values.component';
 import { appRoutes } from './routes';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ValuesComponent,
     ToolbarComponent,
     LoginDialogComponent,
     HomeComponent,

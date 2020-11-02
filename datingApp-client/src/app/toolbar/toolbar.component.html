@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()" fxHide.gt-sm="true">
+  <button mat-icon-button class="example-icon" (click)="drawer.toggle()" fxHide.gt-sm="true">
     <mat-icon>menu</mat-icon>
   </button>
 
@@ -18,19 +18,26 @@
       style="max-height: 30px;  border-radius: 50%;" alt="">
     </span>
     <button mat-button [matMenuTriggerFor]="menu"  >
-      Welcome {{authService.decodedToken?.unique_name | titlecase}} <mat-icon class="ml-1">keyboard_arrow_down</mat-icon>
+      Welcome {{authService.decodedToken?.unique_name | titlecase}}
+      <mat-icon class="ml-1">keyboard_arrow_down</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/member/edit"> <mat-icon class="mr-3">settings</mat-icon> Edit</button>
-      <button mat-menu-item (click)="logout()"> <mat-icon class="mr-3">exit_to_app</mat-icon> Logout</button>
+      <button mat-menu-item routerLink="/member/edit">
+        <mat-icon class="mr-3">settings</mat-icon> Edit
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon class="mr-3">exit_to_app</mat-icon> Logout
+      </button>
     </mat-menu>
   </div>
 
   <div *ngIf="!loggedIn()">
-    <button class="button-margin" (click)="openRegisterDialog()" mat-raised-button fxHide.lt-md="true">
+    <button class="button-margin" (click)="openRegisterDialog()"
+      mat-raised-button fxHide.lt-md="true">
       Register
     </button>
-    <button class="button-margin" (click)="openLoginDialog()" mat-raised-button color="accent" fxHide.lt-md="true">
+    <button class="button-margin" (click)="openLoginDialog()"
+      mat-raised-button color="accent" fxHide.lt-md="true">
       Login
       <mat-icon>login</mat-icon>
     </button>
@@ -38,7 +45,8 @@
 </mat-toolbar>
 
 <!-- Toolbar menu drawer when screen small -->
-<mat-drawer-container class="example-container" hasBackdrop="true">
+<mat-drawer-container class="example-container"
+  hasBackdrop="true" [ngClass.lt-md]="'toolbar-sm'">
   <mat-drawer #drawer mode="over" >
     <button mat-icon-button color="primary" (click)="drawer.close()" class="float-right m-2">
       <mat-icon >close</mat-icon>

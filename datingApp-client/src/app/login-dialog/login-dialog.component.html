@@ -1,10 +1,9 @@
-<div mat-dialog-content>
-  <!-- <app-toolbar [username]="userName"></app-toolbar> -->
+<div mat-dialog-content *ngIf="data.isLogin">
   <div fxLayoutAlign="center" class="title-box">
-    <mat-card-title color="accent">{{data.isLogin === true? "Login" : "Register"}}</mat-card-title>
+    <mat-card-title color="accent">Login</mat-card-title>
   </div>
-
-  <form #loginForm="ngForm" class="example-form" (ngSubmit)="data.isLogin ? login(): register()">
+  <!-- login template form -->
+  <form #loginForm="ngForm" class="example-form-login" *ngIf="data.isLogin" (ngSubmit)="login()">
     <mat-form-field class="example-full-width">
       <mat-label>Username</mat-label>
       <input matInput [(ngModel)]="model.username" name="username" #username placeholder="Ex. John Hagipoulos" required>
@@ -20,6 +19,40 @@
       <button mat-button (click)="onNoClick()">Close</button>
       <button mat-raised-button color="primary" type="submit"
         [disabled]="!loginForm.valid">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-content *ngIf="!data.isLogin">
+  <div fxLayoutAlign="center" class="title-box">
+    <mat-card-title color="accent">Register</mat-card-title>
+  </div>
+  <!-- register reactive form -->
+  <form [formGroup]="registerForm" class="example-form-register"
+    (ngSubmit)="register()"
+    >
+    <mat-form-field class="example-full-width">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" placeholder="Ex. John Hagipoulos" >
+    </mat-form-field>
+    <br />
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" placeholder="Min. 6 characters..."
+        [type]="hide ? 'password' : 'text'" >
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput formControlName="confirmPassword" placeholder="Confirm password"
+        [type]="hide ? 'password' : 'text'" >
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </mat-form-field>
+
+    <div mat-dialog-actions fxLayoutAlign="end" class="button-group">
+      <button mat-button (click)="onNoClick()">Close</button>
+      <button mat-raised-button color="primary" type="submit"
+        [disabled]="!registerForm.valid">Submit</button>
     </div>
   </form>
 </div>
