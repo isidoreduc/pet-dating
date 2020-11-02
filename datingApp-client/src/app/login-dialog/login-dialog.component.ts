@@ -32,7 +32,7 @@ export class LoginDialogComponent implements OnInit {
         confirmPassword: ['', [Validators.required]],
         gender: ['Girl'],
         knownAs: ['', [Validators.required]],
-        dateOfBirth: [new Date(), [Validators.required]],
+        dateOfBirth: [null, [Validators.required]],
         city: ['', [Validators.required]],
         country: ['', [Validators.required]],
       },
@@ -71,11 +71,11 @@ export class LoginDialogComponent implements OnInit {
         .subscribe(() => {
           this.alerify.success("Registration Complete");
           this.dialogRef.close();
+          this.authService.login(this.user).subscribe(() =>
+            this.router.navigate(['/members'])
+          );
         },
-          error => this.alerify.error(error)),
-        () => this.authService.login(this.user).subscribe(() =>
-          this.router.navigate(['/members'])
-        );
+          error => this.alerify.error(error));
     }
     // console.log(this.registerForm.value);
   };

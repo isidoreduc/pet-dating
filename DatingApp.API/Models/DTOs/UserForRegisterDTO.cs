@@ -20,7 +20,7 @@ namespace DatingApp.API.Models.DTOs
     [Required]
     public string Country { get; set; }
     [Required]
-    public DateTime Dob { get; set; }
+    public DateTime DateOfBirth { get; set; }
     public DateTime Created { get; set; }
     public DateTime LastActive { get; set; }
 
