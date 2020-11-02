@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
@@ -14,28 +14,36 @@ import { AlertifyService } from './../_services/alertify.service';
 export class LoginDialogComponent implements OnInit {
   model: any = {};
   hide = true;
-  registerForm: FormGroup;
+  registerForm = new FormGroup({});
 
 
   constructor(
     private authService: AuthService,
     public dialogRef: MatDialogRef<LoginDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder,
     private alerify: AlertifyService, private router: Router) { } // injecting data from toolbar
 
   ngOnInit(): void {
-    this.registerForm = new FormGroup(
+    this.registerForm = this.fb.group(
       {
-        username: new FormControl(),
-        password: new FormControl(),
-        confirmPassword: new FormControl(),
-      }
+        username: ['', [Validators.required, Validators.minLength(3)]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      { validator: this.passwordMatchValidator }
     );
   }
 
+  passwordMatchValidator(form: FormGroup) {
+    return form.get('password').value === form.get('confirmPassword').value ? null :
+      { 'mismatch': true };
+  }
+
+
   onNoClick(): void {
     this.dialogRef.close();
-  }
+  };
 
   login = () =>
     this.authService.login(this.model)
