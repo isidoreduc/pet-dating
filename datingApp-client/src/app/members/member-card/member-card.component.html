@@ -1,13 +1,13 @@
 <mat-card class="example-card mb-5" [routerLink]="['/members/', member.id]">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image" style="background-image: url('{{member.photoUrl}}');"></div>
-    <mat-card-title >
+    <mat-card-title>
       {{member.username | titlecase}}
       <mat-icon>pets</mat-icon>
     </mat-card-title>
     <mat-card-subtitle class="pb-3">{{member.age}} years young</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="{{member.photoUrl}}" alt="{{member.knownAs}}">
+  <img mat-card-image src="{{member.photoUrl || '/assets/images/user.png'}}" alt="{{member.username}}">
   <mat-card-content>
     <p>
       {{member.introduction}}
@@ -17,7 +17,11 @@
     <!-- <button mat-mini-fab color="primary" [routerLink]="['/members/', member.id]" matTooltip="Details">
       <mat-icon>portrait</mat-icon>
     </button> -->
-    <button mat-mini-fab color="primary" matTooltip="Chat" class="mr-3"><mat-icon>chat</mat-icon></button>
-    <button mat-mini-fab color="accent" matTooltip="Like" class="mr-3"><mat-icon>favorite</mat-icon></button>
+    <button mat-mini-fab color="primary" matTooltip="Chat" class="mr-3">
+      <mat-icon>chat</mat-icon>
+    </button>
+    <button mat-mini-fab color="accent" matTooltip="Like" class="mr-3">
+      <mat-icon>favorite</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>

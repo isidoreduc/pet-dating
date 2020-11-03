@@ -7,17 +7,16 @@
     pet<strong style="color: var(--my-red);">date</strong>
   </a>
   <div style="padding-left: 4rem;" *ngIf="loggedIn()" fxHide.lt-md="true">
-    <button mat-button  routerLink="/members">Matches</button>
-    <button mat-button  routerLink="/lists">Lists</button>
-    <button mat-button  routerLink="/messages">Messages</button>
+    <button mat-button routerLink="/members">Matches</button>
+    <button mat-button routerLink="/lists">Lists</button>
+    <button mat-button routerLink="/messages">Messages</button>
   </div>
   <span class="example-spacer"></span>
 
   <div fxHide.lt-md="true" *ngIf="loggedIn()">
-    <span><img src="{{photoUrl}}"
-      style="max-height: 30px;  border-radius: 50%;" alt="">
+    <span><img src="{{photoUrl || '/assets/images/user.png'}}" style="max-height: 30px;  border-radius: 50%;" alt="">
     </span>
-    <button mat-button [matMenuTriggerFor]="menu"  >
+    <button mat-button [matMenuTriggerFor]="menu">
       Welcome {{authService.decodedToken?.unique_name | titlecase}}
       <mat-icon class="ml-1">keyboard_arrow_down</mat-icon>
     </button>
@@ -32,12 +31,10 @@
   </div>
 
   <div *ngIf="!loggedIn()">
-    <button class="button-margin" (click)="openRegisterDialog()"
-      mat-raised-button fxHide.lt-md="true">
+    <button class="button-margin" (click)="openRegisterDialog()" mat-raised-button fxHide.lt-md="true">
       Register
     </button>
-    <button class="button-margin" (click)="openLoginDialog()"
-      mat-raised-button color="accent" fxHide.lt-md="true">
+    <button class="button-margin" (click)="openLoginDialog()" mat-raised-button color="accent" fxHide.lt-md="true">
       Login
       <mat-icon>login</mat-icon>
     </button>
@@ -45,11 +42,10 @@
 </mat-toolbar>
 
 <!-- Toolbar menu drawer when screen small -->
-<mat-drawer-container class="example-container"
-  hasBackdrop="true" [ngClass.lt-md]="'toolbar-sm'">
-  <mat-drawer #drawer mode="over" >
+<mat-drawer-container class="example-container" hasBackdrop="true" [ngClass.lt-md]="'toolbar-sm'">
+  <mat-drawer #drawer mode="over">
     <button mat-icon-button color="primary" (click)="drawer.close()" class="float-right m-2">
-      <mat-icon >close</mat-icon>
+      <mat-icon>close</mat-icon>
     </button>
     <div class="mt-5 pt-5" *ngIf="loggedIn()">
       <button mat-menu-item>
@@ -61,11 +57,15 @@
       <button mat-menu-item routerLink="/members">
         <mat-icon class="mr-5">supervisor_account</mat-icon>Matches
       </button>
-      <button mat-menu-item routerLink="/member/edit"> <mat-icon class="mr-5">settings</mat-icon> Edit</button>
-      <button mat-menu-item (click)="logout()"> <mat-icon class="mr-5">exit_to_app</mat-icon> Logout</button>
+      <button mat-menu-item routerLink="/member/edit">
+        <mat-icon class="mr-5">settings</mat-icon> Edit
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon class="mr-5">exit_to_app</mat-icon> Logout
+      </button>
       <div class="ml-4 mb-2" style="position:fixed;bottom:20px;width:inherit;">
-        <span class="row"  fxLayoutAlign="center">
-          <img src="{{photoUrl}}" class="mx-3" style="max-height: 30px;border: 1px solid var(--my-mauve); border-radius: 50%;">
+        <span class="row" fxLayoutAlign="center">
+          <img src="{{photoUrl || '/assets/images/user.png'}}" class="mx-3" style="max-height: 30px; border-radius: 50%;">
           <div class="mt-2"><b>{{authService.currentUser.knownAs.toUpperCase()}}</b> - {{authService.currentUser.age}} years</div>
         </span>
       </div>

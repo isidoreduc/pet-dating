@@ -2,7 +2,7 @@
 <div class="container mt-5">
   <div class="row">
 
-    <div class="col-sm-4">
+    <div class="col-md-4">
       <mat-card class="example-card">
         <mat-card-header>
           <div mat-card-avatar style="background-image: url('{{user.photoUrl}}');
@@ -10,7 +10,7 @@
           <mat-card-title>{{user.knownAs | titlecase}}</mat-card-title>
           <mat-card-subtitle>{{user.city}}, {{user.country}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="{{user.photoUrl}}" alt="Photo of a Shiba Inu">
+        <img mat-card-image src="{{user.photoUrl || '/assets/images/user.png'}}" alt="Photo of {{user.username}}">
         <mat-card-content>
           <p><b>Age</b><br>{{user.age}}</p>
           <p><b>Last active</b><br>{{user.lastActive | date:'medium'}}</p>
@@ -23,11 +23,11 @@
       </mat-card>
     </div>
 
-    <div class="col-sm-8">
+    <div class="col-md-8">
       <mat-tab-group mat-align-tabs="start">
         <mat-tab label="About {{user.knownAs | titlecase}}">
           <!-- to lazy load, include content in a ng-template tag, with matTabContent attribute -->
-          <ng-template matTabContent >
+          <ng-template matTabContent>
             <div class="container mt-5">
               <p style="font-size: 1.5rem;color:var(--my-mauve);">Description</p>
               <p>{{user.introduction}}</p>

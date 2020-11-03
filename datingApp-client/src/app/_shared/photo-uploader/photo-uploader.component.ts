@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { AuthService } from './../../_services/auth.service';
 import { FileUploader } from 'ng2-file-upload';
 import { IPhoto } from 'src/app/_models/photo';
 
@@ -12,11 +13,12 @@ export class PhotoUploaderComponent implements OnInit {
   @Input() URL: string;
   @Input() TOKEN: string;
   @Input() PHOTOS: IPhoto[];
+  // @Input() AUTHSERV: AuthService;
 
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
 
-  constructor() { }
+  constructor(private _authServ: AuthService) { }
 
   ngOnInit(): void {
     this.initializeUploader();
@@ -42,7 +44,21 @@ export class PhotoUploaderComponent implements OnInit {
     this.uploader.onSuccessItem = (item, response, status, header) => {
       if (response) {
         const res: IPhoto = JSON.parse(response);
-        this.PHOTOS.push(res);
+        const photo = {
+          id: res.id,
+          url: res.url,
+          dateAdded: res.dateAdded,
+          description: res.description,
+          isMainPhoto: res.isMainPhoto
+        };
+        this.PHOTOS.push(photo);
+        // if photo we just pushed is the only one, then it is main, so it should be all over
+        if (this.PHOTOS.length === 1) {
+          photo.isMainPhoto = true;
+          this._authServ.changeMemberPhoto(photo.url);
+          this._authServ.currentUser.photoUrl = photo.url;
+          localStorage.setItem('loggedUser', JSON.stringify(this._authServ.currentUser));
+        }
       }
     };
   }

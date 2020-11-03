@@ -4,7 +4,7 @@
     <div class="col-md-4">
       <h1>Your profile</h1>
     </div>
-    <div  class="col-md-8">
+    <div class="col-md-8">
       <div *ngIf="editForm.dirty" class="alert alert-info">
         <b>Info:</b> You made some changes to your profile. Consider saving them.
       </div>
@@ -19,15 +19,14 @@
           <mat-card-title>{{user.knownAs | titlecase}}</mat-card-title>
           <mat-card-subtitle>{{user.city}}, {{user.country}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="{{photoUrl}}" alt="Photo user">
+        <img mat-card-image src="{{photoUrl || '/assets/images/user.png'}}" alt="Photo user">
         <mat-card-content>
           <p><b>Age</b><br>{{user.age}}</p>
           <p><b>Last active</b><br>{{user.lastActive | date:'medium'}}</p>
           <p><b>Member since</b><br>{{user.created | date:'medium'}}</p>
         </mat-card-content>
         <mat-card-actions class="mb-1 d-flex justify-content-center">
-          <button [disabled]="!editForm.dirty" form="myForm" mat-raised-button color="primary"
-            class="w-75" (click)="updateUser()">
+          <button [disabled]="!editForm.dirty" form="myForm" mat-raised-button color="primary" class="w-75" (click)="updateUser()">
             SAVE CHANGES
           </button>
         </mat-card-actions>
@@ -44,13 +43,13 @@
                 {{user.introduction}}
               </textarea>
             </mat-form-field>
-            <mat-form-field appearance="fill"  class="w-100">
+            <mat-form-field appearance="fill" class="w-100">
               <mat-label>Looking for</mat-label>
               <textarea matInput [(ngModel)]="user.lookinFor" name="lookinFor" rows="8">
                 {{user.lookinFor}}
               </textarea>
             </mat-form-field>
-            <mat-form-field appearance="fill"  class="w-100">
+            <mat-form-field appearance="fill" class="w-100">
               <mat-label>Interests</mat-label>
               <textarea matInput [(ngModel)]="user.interests" name="interests" rows="8">
                 {{user.interests}}
@@ -59,11 +58,11 @@
             <div class="d-flex">
               <mat-form-field appearance="fill" class="w-100 pr-2">
                 <mat-label>City</mat-label>
-                <input matInput [(ngModel)]="user.city" name="city" >
+                <input matInput [(ngModel)]="user.city" name="city">
               </mat-form-field>
               <mat-form-field appearance="fill" class="w-100 pl-2">
                 <mat-label>Country</mat-label>
-                <input matInput [(ngModel)]="user.country" name="country" >
+                <input matInput [(ngModel)]="user.country" name="country">
               </mat-form-field>
             </div>
           </form>
@@ -72,9 +71,7 @@
         <mat-tab label="Edit Photos">
           <ng-template matTabContent>
             <div class="container-fluid mt-5">
-              <app-photo-upload
-                [photosInput]="getPhotosSortedByDateAdded()"
-                (mainPhotoOutput)="getNewMainPhoto($event)"></app-photo-upload>
+              <app-photo-upload [photosInput]="getPhotosSortedByDateAdded()" (mainPhotoOutput)="getNewMainPhoto($event)"></app-photo-upload>
             </div>
           </ng-template>
         </mat-tab>
