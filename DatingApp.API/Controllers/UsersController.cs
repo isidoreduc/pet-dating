@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System;
+using DatingApp.API.Helpers;
 
 namespace DatingApp.API.Controllers
 {
   [Authorize]
   [Route("api/[controller]")]
   [ApiController]
+  [ServiceFilter(typeof(LogUserActivity))]
   public class UsersController : ControllerBase
   {
     private readonly IDatingRepository _datingRepository;

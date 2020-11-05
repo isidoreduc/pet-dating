@@ -2,6 +2,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GALLERY_CONFIG, GalleryModule } from 'ng-gallery';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { NgModule, Pipe } from '@angular/core';
 
 import { A11yModule } from '@angular/cdk/a11y';
 import { AppComponent } from './app.component';
@@ -58,15 +59,22 @@ import { MemberDetailsComponent } from './members/member-details/member-details.
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
-import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PhotoUploadComponent } from './members/photo-upload/photo-upload.component';
 import { PhotoUploaderComponent } from './_shared/photo-uploader/photo-uploader.component';
 import { PortalModule } from '@angular/cdk/portal';
 import { RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { TimeAgoPipe } from 'time-ago-pipe';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { appRoutes } from './routes';
+
+// TimeAgo pipe to make it work in Angular 9+
+@Pipe({
+  name: 'timeAgo',
+  pure: false
+})
+export class TimeAgoExtendsPipe extends TimeAgoPipe { }
 
 @NgModule({
   declarations: [
@@ -81,7 +89,8 @@ import { appRoutes } from './routes';
     MemberDetailsComponent,
     MemberEditComponent,
     PhotoUploadComponent,
-    PhotoUploaderComponent
+    PhotoUploaderComponent,
+    TimeAgoExtendsPipe
   ],
   imports: [
     JwtModule.forRoot({
@@ -144,7 +153,7 @@ import { appRoutes } from './routes';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule, GalleryModule, BsDropdownModule.forRoot(), FileUploadModule
+    FlexLayoutModule, GalleryModule, BsDropdownModule.forRoot(), FileUploadModule,
 
   ],
   providers: [ErrorInterceptorProvider,

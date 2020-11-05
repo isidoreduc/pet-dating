@@ -84,6 +84,7 @@ namespace DatingApp.API
       });
       services.AddTransient<SeedData>();
       services.AddAutoMapper(typeof(Startup));
+      services.AddScoped<LogUserActivity>();
 
     }
 

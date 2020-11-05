@@ -13,8 +13,8 @@
         <img mat-card-image src="{{user.photoUrl || '/assets/images/user.png'}}" alt="Photo of {{user.username}}">
         <mat-card-content>
           <p><b>Age</b><br>{{user.age}}</p>
-          <p><b>Last active</b><br>{{user.lastActive | date:'medium'}}</p>
-          <p><b>Member since</b><br>{{user.created | date:'medium'}}</p>
+          <p><b>Last active</b><br>{{user.lastActive | timeAgo}}</p>
+          <p><b>Member since</b><br>{{user.created | timeAgo}}</p>
         </mat-card-content>
         <mat-card-actions class="mb-1 d-flex">
           <button mat-raised-button color="accent" class="w-100">LIKE</button>
