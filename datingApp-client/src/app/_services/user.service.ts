@@ -21,7 +21,7 @@ export class UserService {
 
     if (page !== null && itemsPerPage !== null) {
       params = params.append('pageNumber', page);
-      params = params.append('PageSize', itemsPerPage);
+      params = params.append('pageSize', itemsPerPage);
     }
     return this.http.get<IUser[]>(`${this.baseUrl}users`, { observe: 'response', params }).pipe(
       map(response => {

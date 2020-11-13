@@ -45,7 +45,12 @@ namespace DatingApp.API.Models.Data
     // async - there is a wire connection call to database
     public async Task<PagedList<User>> GetUsers(UserParams userParams)
     {
-      var users = _ctx.Users.Include(p => p.Photos);
+      var users = _ctx.Users.Include(p => p.Photos).AsQueryable();
+
+      users = users.Where(u => u.Id != userParams.UserId);
+      //if(userParams.Gender != null)
+      users = users.Where(u => u.Gender == userParams.Gender);
+
       return await PagedList<User>
         .CreateAsync(users, userParams.PageNumber, userParams.PageSize);
     }
