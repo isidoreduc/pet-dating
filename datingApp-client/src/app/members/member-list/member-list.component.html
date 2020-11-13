@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <form class="form-inline mb-3" #form="ngForm" (ngSubmit)="loadUsers()" novalidate>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="minAge">Age From</label>
       <input type="number" class="form-control ml-1" style="width: 70px" id="minAge"
         [(ngModel)]="userParams.minAge" name="minAge">
@@ -23,8 +23,34 @@
     </div>
     <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
     <button type="button" class="btn btn-info"
-      (click)="resetFilters()" style="margin-left:10px">Reset Filter</button>
+      (click)="resetFilters()" style="margin-left:10px">Reset Filter</button> -->
 
+      <mat-form-field class="mr-3">
+        <mat-label>Age From</mat-label>
+        <input type="number" matInput placeholder="Min. age is 18"
+          name='minAge' [(ngModel)]="userParams.minAge">
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="mr-3">
+        <mat-label>Age To</mat-label>
+        <input type="number" matInput placeholder="Max. age is 99"
+          name='maxAge' [(ngModel)]="userParams.maxAge">
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="pb-2">
+        <mat-label>Gender</mat-label>
+        <mat-select [(ngModel)]="userParams.gender" name='gender'>
+          <mat-option *ngFor="let item of genderList" [value]='item.value'>
+            {{item.display}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" class="ml-3 mb-3" color="primary">Apply Filters</button>
+      <button mat-raised-button type="button" color="accent"
+        (click)="resetFilters()" class="ml-3 mb-3">Reset Filter</button>
   </form>
 
 
