@@ -49,8 +49,8 @@ namespace DatingApp.API.Models.Data
       var users = _ctx.Users.Include(p => p.Photos).AsQueryable();
 
       users = users.Where(u => u.Id != userParams.UserId);
-      //if(userParams.Gender != null)
-      users = users.Where(u => u.Gender == userParams.Gender);
+      if(userParams.Gender != null)
+        users = users.Where(u => u.Gender == userParams.Gender);
 
       if(userParams.MinAge !=18 || userParams.MaxAge != 99)
       {

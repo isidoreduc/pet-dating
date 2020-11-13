@@ -32,10 +32,10 @@ namespace DatingApp.API.Controllers
       var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
       var userFromRepo = await _datingRepository.GetUserById(currentUserId);
       userParams.UserId = currentUserId;
-      if(string.IsNullOrEmpty(userParams.Gender))
-      {
-        userParams.Gender = userFromRepo.Gender == "male" ? "female": "male";
-      }
+      // if(string.IsNullOrEmpty(userParams.Gender))
+      // {
+      //   userParams.Gender = userFromRepo.Gender == "male" ? "female": "male";
+      // }
 
       var users = await _datingRepository.GetUsers(userParams);
       var mappedUsers = _mapper.Map<IEnumerable<UserForListDTO>>(users);
