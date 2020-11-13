@@ -15,6 +15,12 @@ import { UserService } from '../../_services/user.service';
 })
 export class MemberListComponent implements OnInit {
   members: IUser[];
+  user: IUser = JSON.parse(localStorage.getItem('loggedUser'));
+  genderList = [
+    { value: 'male', display: 'Males' },
+    { value: 'female', display: 'Females' },
+  ];
+  userParams: any = {};
   pagination: IPagination;
   pageEvent: PageEvent;
 
@@ -26,10 +32,14 @@ export class MemberListComponent implements OnInit {
       this.members = data['users'].result;
       this.pagination = data['users'].pagination;
     });
+
+    this.userParams.gender = this.user.gender === 'female' ? 'male' : 'female';
+    this.userParams.minAge = 18;
+    this.userParams.maxAge = 99;
   }
 
   loadUsers = () =>
-    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage)
+    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
       .subscribe((res: PaginatedResult<IUser[]>) => {
         this.members = res.result;
         this.pagination = res.pagination;
@@ -40,5 +50,12 @@ export class MemberListComponent implements OnInit {
     this.pagination.itemsPerPage = event.pageSize;
     this.loadUsers();
   };
+
+  resetFilters() {
+    this.userParams.gender = this.user.gender === 'female' ? 'male' : 'female';
+    this.userParams.minAge = 18;
+    this.userParams.maxAge = 99;
+    this.loadUsers();
+  }
 
 }
