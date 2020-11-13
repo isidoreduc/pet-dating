@@ -46,7 +46,7 @@
         name='maxAge'>
       </mat-slider>
 
-      <mat-form-field appearance="fill"  >
+      <mat-form-field appearance="fill">
         <mat-label>Gender</mat-label>
         <mat-select [(ngModel)]="userParams.gender" name='gender' >
           <mat-option *ngFor="let item of genderList" [value]='item.value' (click)="loadUsers()">
@@ -55,6 +55,16 @@
         </mat-select>
       </mat-form-field>
 
+      <div class="col">
+        <div class="float-right pb-3">
+            <mat-button-toggle-group [(ngModel)]="userParams.orderBy" name="orderBy">
+              <mat-button-toggle  value="lastActive"
+                (click)="loadUsers()">Last Active</mat-button-toggle>
+              <mat-button-toggle  value="created"
+                (click)="loadUsers()">Newest Members</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+      </div>
   </form>
 
 

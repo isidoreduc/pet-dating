@@ -46,19 +46,38 @@ namespace DatingApp.API.Models.Data
     // async - there is a wire connection call to database
     public async Task<PagedList<User>> GetUsers(UserParams userParams)
     {
-      var users = _ctx.Users.Include(p => p.Photos).AsQueryable();
-
+      var users = _ctx.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive)
+        .AsQueryable();
+      // filter out the logged in user
       users = users.Where(u => u.Id != userParams.UserId);
+
+      // gender filtering
       if(userParams.Gender != null)
         users = users.Where(u => u.Gender == userParams.Gender);
 
+      // age filtering
       if(userParams.MinAge !=18 || userParams.MaxAge != 99)
       {
         var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
         var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
         users = users.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
-
       }
+
+      // order by date created or date last active
+      if(userParams.OrderBy != null)
+      {
+        switch (userParams.OrderBy)
+        {
+          case "created":
+            users = users.OrderByDescending(u => u.Created);
+            break;
+          default:
+            users = users.OrderByDescending(u => u.LastActive);
+            break;
+        }
+      }
+
+
 
       return await PagedList<User>
         .CreateAsync(users, userParams.PageNumber, userParams.PageSize);
