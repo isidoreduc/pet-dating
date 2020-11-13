@@ -17,6 +17,7 @@ export class MemberListComponent implements OnInit {
   members: IUser[];
   user: IUser = JSON.parse(localStorage.getItem('loggedUser'));
   genderList = [
+    { value: '', display: 'All' },
     { value: 'male', display: 'Males' },
     { value: 'female', display: 'Females' },
   ];
@@ -34,7 +35,7 @@ export class MemberListComponent implements OnInit {
     });
 
     // this.userParams.gender = this.user.gender === 'female' ? 'male' : 'female';
-    this.userParams.gender = null;
+    this.userParams.gender = "";
     this.userParams.minAge = 18;
     this.userParams.maxAge = 99;
   }
