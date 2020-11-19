@@ -1,5 +1,5 @@
-<mat-card class="example-card mb-5" [routerLink]="['/members/', member.id]">
-  <mat-card-header>
+<mat-card class="example-card mb-5" >
+  <mat-card-header [routerLink]="['/members/', member.id]">
     <div mat-card-avatar class="example-header-image" style="background-image: url('{{member.photoUrl}}');"></div>
     <mat-card-title>
       {{member.username | titlecase}}
@@ -20,8 +20,14 @@
     <button mat-mini-fab color="primary" matTooltip="Chat" class="mr-3">
       <mat-icon>chat</mat-icon>
     </button>
-    <button mat-mini-fab color="accent" matTooltip="Like" class="mr-3">
+    <button mat-mini-fab color="accent" matTooltip="Like" class="mr-3"
+      (click)=sendLike(member.id) >
       <mat-icon>favorite</mat-icon>
     </button>
+    <!-- <button mat-mini-fab [color]="isLikedList? 'warn': 'accent'" [matTooltip]="isLikedList ? 'Delete': 'Like'" class="mr-3"
+      (click)=sendLike(member.id) >
+      <mat-icon *ngIf="!isLikedList">favorite</mat-icon>
+      <mat-icon *ngIf="isLikedList">delete</mat-icon>
+    </button> -->
   </mat-card-actions>
 </mat-card>

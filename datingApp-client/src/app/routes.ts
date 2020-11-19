@@ -1,6 +1,7 @@
 import { AuthGuard } from './_guards/auth.guard';
 import { HomeComponent } from './home/home.component';
-import { LikedListComponent } from './liked-list/liked-list.component';
+import { LikedListComponent } from './members/liked-list/liked-list.component';
+import { ListsResolver } from './_resolvers/lists.resolver';
 import { MemberDetailsComponent } from './members/member-details/member-details.component';
 import { MemberDetailsResolver } from './_resolvers/member-details.resolver';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
@@ -29,7 +30,7 @@ export const appRoutes: Routes = [
       },
       { path: 'member/edit', component: MemberEditComponent },
       { path: 'messages', component: MessagesComponent },
-      { path: 'lists', component: LikedListComponent },
+      { path: 'lists', component: LikedListComponent, resolve: { users: ListsResolver } },
 
     ]
   },

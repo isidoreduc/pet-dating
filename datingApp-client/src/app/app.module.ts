@@ -20,7 +20,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
-import { LikedListComponent } from './liked-list/liked-list.component';
+import { LikedListComponent } from './members/liked-list/liked-list.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';

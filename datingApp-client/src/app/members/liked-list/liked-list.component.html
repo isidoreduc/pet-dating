@@ -1,0 +1,33 @@
+<div class="text-center mt-3">
+  <h2>{{likesParam === 'Likers' ? 'Members who like me' : 'Members who I\'ve Liked'}}
+    : {{pagination.totalItems}}</h2>
+</div>
+
+<div class="container mt-3">
+
+  <mat-button-toggle-group [(ngModel)]="likesParam" name="likesParam" class="mb-3">
+    <mat-button-toggle  value="Likers"
+      (click)="loadUsers()">Users liking me</mat-button-toggle>
+    <mat-button-toggle  value="Likees"
+      (click)="loadUsers()">Users I like</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <br>
+
+  <div class="row">
+    <div *ngFor="let user of users" class="col-sm-6 col-md-4 col-lg-4 col-xl-2">
+      <app-member-card [member]="user" [isLikedList]="true"></app-member-card>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="d-flex justify-content-center mb-2">
+  <mat-paginator
+    [length]="pagination.totalItems"
+    [pageSize]="pagination.itemsPerPage"
+    [pageSizeOptions]="[8, 16, 32, 64]"
+    (page)="changePage($event)">
+  </mat-paginator>
+</div>
