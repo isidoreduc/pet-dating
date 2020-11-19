@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { AlertifyService } from './../../_services/alertify.service';
 import { AuthService } from './../../_services/auth.service';
@@ -14,6 +14,7 @@ export class MemberCardComponent implements OnInit {
   @Input() member: IUser;
   // disabled = false;
   @Input() isLikedList: boolean;
+  @Output() loadUsers = new EventEmitter();
 
 
 
@@ -27,6 +28,16 @@ export class MemberCardComponent implements OnInit {
     this._userService.sendLike(this._authService.decodedToken.nameid, id)
       .subscribe(data => {
         this._alertify.success(`You have liked ${this.member.username.toUpperCase()}`);
+      },
+        err => this._alertify.error(err));
+
+
+  unLikeUser = (id: number) =>
+    this._userService.unLikeUser(this._authService.decodedToken.nameid, id)
+      .subscribe(data => {
+        this._alertify.success(`You have unliked ${this.member.username.toUpperCase()}`);
+        // need an event to reload likes list after delete
+        this.loadUsers.emit(null);
       },
         err => this._alertify.error(err));
 

@@ -25,6 +25,11 @@ button:focus {
   outline: none;
 }
 
+// removes outline from all routerlink elements in project
+*[ng-reflect-router-link]:focus {
+  outline: none;
+}
+
 // .mat-sidenav-container,
 // .mat-sidenav-content,
 // .mat-tab-body-content {

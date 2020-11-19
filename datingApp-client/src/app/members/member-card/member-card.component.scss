@@ -7,10 +7,6 @@ mat-card:hover img {
   opacity: 0.8;
 }
 
-mat-card:focus {
-  outline: none;
-}
-
 mat-card:hover {
   transform: scale(1.05, 1.05);
   transition-duration: 500ms;
@@ -35,3 +31,4 @@ mat-card-actions {
 .example-card:hover mat-card-actions {
   opacity: 1;
 }
+

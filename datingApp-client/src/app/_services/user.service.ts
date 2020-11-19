@@ -62,4 +62,7 @@ export class UserService {
   sendLike = (id: number, recipientId: number) =>
     this.http.post(`${this.baseUrl}users/${id}/like/${recipientId}`, {});
 
+  unLikeUser = (id: number, recipientId: number) =>
+    this.http.delete(`${this.baseUrl}users/${id}/like/${recipientId}`, {});
+
 }

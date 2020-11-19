@@ -7,27 +7,22 @@
     </mat-card-title>
     <mat-card-subtitle class="pb-3">{{member.age}} years young</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="{{member.photoUrl || '/assets/images/user.png'}}" alt="{{member.username}}">
-  <mat-card-content>
+  <img mat-card-image src="{{member.photoUrl || '/assets/images/user.png'}}"
+    alt="{{member.username}}" [routerLink]="['/members/', member.id]">
+  <!-- <mat-card-content>
     <p>
       {{member.introduction}}
     </p>
-  </mat-card-content>
+  </mat-card-content> -->
   <mat-card-actions fxLayoutAlign="end" class="mb-3">
-    <!-- <button mat-mini-fab color="primary" [routerLink]="['/members/', member.id]" matTooltip="Details">
-      <mat-icon>portrait</mat-icon>
-    </button> -->
     <button mat-mini-fab color="primary" matTooltip="Chat" class="mr-3">
       <mat-icon>chat</mat-icon>
     </button>
-    <button mat-mini-fab color="accent" matTooltip="Like" class="mr-3"
-      (click)=sendLike(member.id) >
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <!-- <button mat-mini-fab [color]="isLikedList? 'warn': 'accent'" [matTooltip]="isLikedList ? 'Delete': 'Like'" class="mr-3"
-      (click)=sendLike(member.id) >
+
+    <button mat-mini-fab [color]="isLikedList? 'warn': 'accent'" [matTooltip]="isLikedList ? 'Delete': 'Like'" class="mr-3"
+      (click)="isLikedList? unLikeUser(member.id) : sendLike(member.id)" >
       <mat-icon *ngIf="!isLikedList">favorite</mat-icon>
       <mat-icon *ngIf="isLikedList">delete</mat-icon>
-    </button> -->
+    </button>
   </mat-card-actions>
 </mat-card>
