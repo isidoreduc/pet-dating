@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -38,24 +39,24 @@ namespace DatingApp.API.Controllers
             return Ok(messageFromRepo);
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> GetMessagesForUser(int userId,
-        //     [FromQuery]MessageParams messageParams)
-        // {
-        //     if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-        //         return Unauthorized();
+        [HttpGet]
+        public async Task<IActionResult> GetMessagesForUser(int userId,
+            [FromQuery]MessageParams messageParams)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
 
-        //     messageParams.UserId = userId;
+            messageParams.UserId = userId;
 
-        //     var messagesFromRepo = await _repo.GetMessagesForUser(messageParams);
+            var messagesFromRepo = await _repo.GetMessagesForUser(messageParams);
 
-        //     var messages = _mapper.Map<IEnumerable<MessageToReturnDTO>>(messagesFromRepo);
+            var messages = _mapper.Map<IEnumerable<MessageToReturnDTO>>(messagesFromRepo);
 
-        //     Response.AddPagination(messagesFromRepo.CurrentPage, messagesFromRepo.PageSize,
-        //         messagesFromRepo.TotalCount, messagesFromRepo.TotalPages);
+            Response.AddPagination(messagesFromRepo.CurrentPage, messagesFromRepo.PageSize,
+                messagesFromRepo.TotalCount, messagesFromRepo.TotalPages);
 
-        //     return Ok(messages);
-        // }
+            return Ok(messages);
+        }
 
         // [HttpGet("thread/{recipientId}")]
         // public async Task<IActionResult> GetMessageThread(int userId, int recipientId)
