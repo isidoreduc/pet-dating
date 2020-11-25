@@ -1,1 +1,53 @@
-<p>messages works!</p>
+<div class="container mt-5">
+  <div class="row my-3">
+    <mat-button-toggle-group [(ngModel)]="messageContainer" name="messageContainer">
+      <mat-button-toggle value="Unread" (click)="loadMessages()">Unread</mat-button-toggle>
+      <mat-button-toggle value="Inbox" (click)="loadMessages()">Inbox</mat-button-toggle>
+      <mat-button-toggle value="Outbox" (click)="loadMessages()">Outbox</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="row" *ngIf="messages.length == 0">
+    <h3>No messages</h3>
+  </div>
+
+  <div class="row my-3" *ngIf="messages.length > 0">
+    <table class="table table-hover" style="cursor: pointer">
+      <tr>
+        <th style="width: 40%">Message</th>
+        <th style="width: 20%">From / To</th>
+        <th style="width: 20%">Sent / Received</th>
+        <th style="width: 20%"></th>
+      </tr>
+      <tr *ngFor="let message of messages" [routerLink]="['/members',
+        messageContainer == 'Outbox' ? message.recipientId : message.senderId]"
+        >
+        <td>{{message.content}}</td>
+        <td>
+          <div *ngIf="messageContainer != 'Outbox'">
+            <img src={{message?.senderPhotoUrl}} style="max-height: 30px; border-radius: 50%;">
+            <strong class="ml-2">{{message.senderKnownAs}}</strong>
+          </div>
+          <div *ngIf="messageContainer == 'Outbox'">
+            <img src={{message?.recipientPhotoUrl}} style="max-height: 30px; border-radius: 50%;">
+            <strong class="ml-2">{{message.recipientKnownAs}}</strong>
+          </div>
+        </td>
+        <td>{{message.messageSent | timeAgo}}</td>
+        <td>
+          <button mat-mini-fab color="warn" matTooltip="Delete" class="mr-3">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center mb-2" *ngIf="pagination.totalItems > 0">
+  <mat-paginator [length]="pagination.totalItems"
+    [pageSize]="pagination.itemsPerPage"
+    [pageSizeOptions]="[8, 16, 32, 64]"
+    (page)="changePage($event)">
+  </mat-paginator>
+</div>
