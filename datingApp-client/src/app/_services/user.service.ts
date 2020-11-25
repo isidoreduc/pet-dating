@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+import { IMessage } from './../_models/message';
 import { IUser } from './../_models/user';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -64,5 +65,28 @@ export class UserService {
 
   unLikeUser = (id: number, recipientId: number) =>
     this.http.delete(`${this.baseUrl}users/${id}/like/${recipientId}`, {});
+
+
+
+
+
+  getMessages = (id: number, page?, itemsPerPage?, messageContainer?): Observable<PaginatedResult<IMessage[]>> => {
+    const paginatedResult: PaginatedResult<IMessage[]> = new PaginatedResult<IMessage[]>();
+    let params = new HttpParams();
+    params = params.append('MessageContainer', messageContainer);
+
+    if (page !== null && itemsPerPage !== null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http.get<IMessage[]>(`${this.baseUrl}users/${id}/messages`, { observe: 'response', params })
+      .pipe(map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') !== null)
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        return paginatedResult;
+      }));
+  };
 
 }
