@@ -68,6 +68,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { appRoutes } from './routes';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 // TimeAgo pipe to make it work in Angular 9+
 @Pipe({
@@ -90,7 +91,8 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe { }
     MemberEditComponent,
     PhotoUploadComponent,
     PhotoUploaderComponent,
-    TimeAgoExtendsPipe
+    TimeAgoExtendsPipe,
+    MemberMessagesComponent
   ],
   imports: [
     JwtModule.forRoot({
