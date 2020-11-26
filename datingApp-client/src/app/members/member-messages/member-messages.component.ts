@@ -13,6 +13,7 @@ import { UserService } from './../../_services/user.service';
 export class MemberMessagesComponent implements OnInit {
   @Input() recipientId: number;
   messages: IMessage[];
+  newMessage: any = {};
 
   constructor(private userService: UserService, private authService: AuthService,
     private alertifyService: AlertifyService) { }
@@ -21,7 +22,19 @@ export class MemberMessagesComponent implements OnInit {
     this.loadMessages();
   }
 
-  loadMessages = () => this.userService.getMessageThread(this.authService.decodedToken.nameid, this.recipientId)
+  loadMessages = () => this.userService.getMessageThread(
+    this.authService.decodedToken.nameid, this.recipientId)
     .subscribe(messages => this.messages = messages, err => this.alertifyService.error(err));
 
+  sendMessage = () => {
+    this.newMessage.recipientId = this.recipientId;
+    this.userService.sendMessage(this.authService.decodedToken.nameid, this.newMessage)
+      .subscribe((message: IMessage) => {
+        // add new message to beginning of messages array
+        this.messages.unshift(message);
+        // reset new message content
+        this.newMessage.content = '';
+      }, err => this.alertifyService.error(err));
+
+  };
 }

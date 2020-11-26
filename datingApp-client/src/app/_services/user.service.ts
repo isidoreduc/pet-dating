@@ -93,4 +93,6 @@ export class UserService {
   getMessageThread = (id: number, recipientId: number) =>
     this.http.get<IMessage[]>(`${this.baseUrl}users/${id}/messages/thread/${recipientId}`);
 
+  sendMessage = (id: number, message: IMessage) =>
+    this.http.post(`${this.baseUrl}users/${id}/messages`, message);
 }
