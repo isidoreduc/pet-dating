@@ -14,6 +14,7 @@ import { UserService } from './../../_services/user.service';
 export class MemberDetailsComponent implements OnInit {
   user: IUser;
   images: GalleryItem[] = [];
+  selectedTab: number;
 
 
   constructor(private userService: UserService, private alertify: AlertifyService,
@@ -23,6 +24,9 @@ export class MemberDetailsComponent implements OnInit {
     // gets data from the resolver: use the same key you used in routes for resolve object (here <user>)
     this.router.data.subscribe(data =>
       this.user = data['user']);
+    this.router.queryParams.subscribe(params => {
+      this.selectedTab = params['tab'];
+    });
 
     // Set gallery items array
     this.images = this.getPhotos();

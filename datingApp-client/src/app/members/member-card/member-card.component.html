@@ -15,7 +15,9 @@
     </p>
   </mat-card-content> -->
   <mat-card-actions fxLayoutAlign="end" class="mb-3">
-    <button mat-mini-fab color="primary" matTooltip="Chat" class="mr-3">
+    <button mat-mini-fab color="primary" matTooltip="Chat" class="mr-3"
+      [routerLink]="['/members', member.id]"
+      [queryParams]="{tab : 3}">
       <mat-icon>chat</mat-icon>
     </button>
 

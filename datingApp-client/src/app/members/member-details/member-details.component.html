@@ -18,13 +18,13 @@
         </mat-card-content>
         <mat-card-actions class="mb-1 d-flex">
           <button mat-raised-button color="accent" class="w-100">LIKE</button>
-          <button mat-raised-button color="primary" class="w-100">MESSAGE</button>
+          <button mat-raised-button color="primary" class="w-100" (click)="tabs.selectedIndex=3">MESSAGE</button>
         </mat-card-actions>
       </mat-card>
     </div>
 
     <div class="col-md-8">
-      <mat-tab-group mat-align-tabs="start">
+      <mat-tab-group mat-align-tabs="start" #tabs [selectedIndex]="selectedTab > 0 ? selectedTab:0">
         <mat-tab label="About {{user.knownAs | titlecase}}">
           <!-- to lazy load, include content in a ng-template tag, with matTabContent attribute -->
           <ng-template matTabContent>
