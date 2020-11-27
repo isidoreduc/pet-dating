@@ -40,13 +40,13 @@
 </div>
 
 <div class="container mt-2" style="background-color: white; border-radius: 5px; border: var(--my-mauve) 2px solid;">
-  <form #messageForm="ngForm" (ngSubmit)="messageForm.valid && sendMessage()" class="mt-3">
+  <form #messageForm="ngForm" class="mt-3">
     <div>
       <mat-form-field style="width: 100%; max-width: 580px;">
         <mat-label>Message</mat-label>
         <input matInput [(ngModel)]="newMessage.content" name="content" required placeholder="send a private message">
       </mat-form-field>
-      <button mat-raised-button type="reset" [disabled]="!messageForm.valid" class="ml-2">
+      <button mat-raised-button type="reset" [disabled]="!messageForm.valid" class="ml-2" (click)="messageForm.valid && sendMessage()">
         Send
       </button>
     </div>

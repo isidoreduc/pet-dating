@@ -31,7 +31,11 @@ namespace DatingApp.API
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
-      services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SqliteConnection"]));
+      // services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration["ConnectionStrings:SqliteConnection"]));
+      //Add PostgreSQL support
+            services.AddDbContext<DataContext>(options =>
+                    options.UseNpgsql(Configuration["ConnectionStrings:PostgresConnection"]));
+
       #region swagger config
       services.AddSwaggerGen(c =>
       {
