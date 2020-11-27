@@ -1,0 +1,32 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+networks:
+  dating-network:
+    driver: bridge
+
+services:
+  datingappapi:
+    image: datingappapi
+    build:
+      context: .
+      dockerfile: DatingApp.API/Dockerfile
+    ports:
+      - "8000:80"
+    environment:
+      DB_CONNECTION_STRING: "host=postgres_image;port=5432;database=petdating;username=raspi;password=password"
+    networks:
+      - dating-network
+
+  postgres-image:
+    image: postgres
+    ports:
+      - "5432"
+    restart: always
+    environment:
+      POSTGRES_USER: "raspi"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "petdating"
+    networks:
+      - dating-network
