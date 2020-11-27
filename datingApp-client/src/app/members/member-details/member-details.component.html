@@ -17,8 +17,10 @@
           <p><b>Member since</b><br>{{user.created | timeAgo}}</p>
         </mat-card-content>
         <mat-card-actions class="mb-1 d-flex">
-          <button mat-raised-button color="accent" class="w-100">LIKE</button>
-          <button mat-raised-button color="primary" class="w-100" (click)="tabs.selectedIndex=3">MESSAGE</button>
+          <button mat-raised-button color="accent" class="w-100"
+            (click)="sendLike(user.id)">LIKE</button>
+          <button mat-raised-button color="primary" class="w-100" [disabled]="tabs.selectedIndex === 3"
+            (click)="tabs.selectedIndex=3">MESSAGE</button>
         </mat-card-actions>
       </mat-card>
     </div>

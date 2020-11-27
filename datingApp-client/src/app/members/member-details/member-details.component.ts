@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GalleryItem, ImageItem } from 'ng-gallery/';
 
 import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from './../../_services/alertify.service';
+import { AuthService } from './../../_services/auth.service';
 import { IUser } from 'src/app/_models/user';
 import { UserService } from './../../_services/user.service';
 
@@ -15,10 +16,11 @@ export class MemberDetailsComponent implements OnInit {
   user: IUser;
   images: GalleryItem[] = [];
   selectedTab: number;
+  @Output() likeEvent = new EventEmitter();
 
 
   constructor(private userService: UserService, private alertify: AlertifyService,
-    private router: ActivatedRoute) { };
+    private router: ActivatedRoute, private authService: AuthService) { };
 
   ngOnInit(): void {
     // gets data from the resolver: use the same key you used in routes for resolve object (here <user>)
@@ -43,6 +45,13 @@ export class MemberDetailsComponent implements OnInit {
     });
     return imageUrls;
   };
+
+  sendLike = (id: number) =>
+    this.userService.sendLike(this.authService.decodedToken.nameid, id)
+      .subscribe(data => {
+        this.alertify.success(`You have liked ${this.user.username.toUpperCase()}`);
+      },
+        err => this.alertify.error(err));
 }
 
 

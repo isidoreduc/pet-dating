@@ -1,9 +1,9 @@
 <div class="container mt-5">
   <div class="row my-3">
     <mat-button-toggle-group [(ngModel)]="messageContainer" name="messageContainer">
-      <mat-button-toggle value="Unread" (click)="loadMessages()">Unread</mat-button-toggle>
-      <mat-button-toggle value="Inbox" (click)="loadMessages()">Inbox</mat-button-toggle>
-      <mat-button-toggle value="Outbox" (click)="loadMessages()">Outbox</mat-button-toggle>
+      <mat-button-toggle value="Unread" (click)="loadMessages()"><mat-icon class="mr-2">mark_email_unread</mat-icon> Unread</mat-button-toggle>
+      <mat-button-toggle value="Inbox" (click)="loadMessages()"><mat-icon class="mr-2">email</mat-icon>Inbox</mat-button-toggle>
+      <mat-button-toggle value="Outbox" (click)="loadMessages()"><mat-icon class="mr-2">send</mat-icon>Outbox</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 
