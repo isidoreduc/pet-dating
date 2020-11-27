@@ -37,7 +37,10 @@
         </td>
         <td>{{message.messageSent | timeAgo}}</td>
         <td>
-          <button mat-mini-fab color="warn" matTooltip="Delete" class="mr-3">
+          <button mat-mini-fab color="warn" matTooltip="Delete" class="mr-3"
+            (click)="deleteMessage(message.id)"
+            (click)="$event.stopPropagation()">
+            <!-- stopPropagation stops routing -->
             <mat-icon>delete</mat-icon>
           </button>
         </td>

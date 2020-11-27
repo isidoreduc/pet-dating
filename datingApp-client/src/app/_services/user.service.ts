@@ -95,4 +95,7 @@ export class UserService {
 
   sendMessage = (id: number, message: IMessage) =>
     this.http.post(`${this.baseUrl}users/${id}/messages`, message);
+
+  deleteMessage = (id: number, userId: number) =>
+    this.http.post(`${this.baseUrl}users/${userId}/messages/${id}`, {});
 }

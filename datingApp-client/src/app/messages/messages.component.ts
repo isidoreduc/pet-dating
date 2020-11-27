@@ -40,4 +40,14 @@ export class MessagesComponent implements OnInit {
     this.pagination.itemsPerPage = event.pageSize;
     this.loadMessages();
   };
+
+  deleteMessage = (id: number) => {
+    this.alertify.confirm('Are you sure?', () => {
+      this.userService.deleteMessage(id, this.authService.decodedToken.nameid)
+        .subscribe(() => {
+          this.messages.splice(this.messages.findIndex(m => m.id === id), 1);
+          this.alertify.success('Message deleted');
+        }, err => this.alertify.error(err));
+    });
+  };
 }
