@@ -48,11 +48,11 @@
       <mat-icon>close</mat-icon>
     </button>
     <div class="mt-5 pt-5" *ngIf="loggedIn()">
-      <button mat-menu-item>
-        <mat-icon class="mr-5">list</mat-icon>Lists
+      <button mat-menu-item routerLink="/lists">
+        <mat-icon class="mr-5" >list</mat-icon>Lists
       </button>
-      <button mat-menu-item>
-        <mat-icon class="mr-5">message</mat-icon>Messages
+      <button mat-menu-item routerLink="/messages">
+        <mat-icon class="mr-5" >message</mat-icon>Messages
       </button>
       <button mat-menu-item routerLink="/members">
         <mat-icon class="mr-5">supervisor_account</mat-icon>Matches

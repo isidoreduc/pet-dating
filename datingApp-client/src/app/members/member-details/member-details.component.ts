@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GalleryItem, ImageItem } from 'ng-gallery/';
 
 import { ActivatedRoute } from '@angular/router';
@@ -16,11 +16,12 @@ export class MemberDetailsComponent implements OnInit {
   user: IUser;
   images: GalleryItem[] = [];
   selectedTab: number;
-  @Output() likeEvent = new EventEmitter();
 
 
   constructor(private userService: UserService, private alertify: AlertifyService,
-    private router: ActivatedRoute, private authService: AuthService) { };
+    private router: ActivatedRoute, private authService: AuthService) { }
+
+
 
   ngOnInit(): void {
     // gets data from the resolver: use the same key you used in routes for resolve object (here <user>)
