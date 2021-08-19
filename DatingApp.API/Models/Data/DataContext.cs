@@ -9,7 +9,6 @@ namespace DatingApp.API.Models.Data
     }
 
 
-    public DbSet<Value> Values { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Photo> Photos { get; set; }
     public DbSet<Like> Likes { get; set; }
@@ -17,6 +16,8 @@ namespace DatingApp.API.Models.Data
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+      // builder.HasDefaultSchema("PetDating");
+      // base.OnModelCreating(builder);
       // Like entity is set to has a combination of LikerId and LikeeId as primary key,
       // because we want a Liker to only like a Likee exactly once.
       builder.Entity<Like>().HasKey(k => new { k.LikerId, k.LikeeId });

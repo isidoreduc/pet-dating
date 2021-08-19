@@ -15,17 +15,20 @@ services:
     ports:
       - "8000:80"
     environment:
-      DB_CONNECTION_STRING: "host=postgres_image;port=5432;database=petdating;username=raspi;password=password"
+      - "ConnectionStrings:PostgresConnection=User ID=postgres;Password=password;Server=postgres-image;Port=5432;Database=petdating;Integrated Security=true;Pooling=true;"
+    depends_on:
+      - postgres-image
     networks:
       - dating-network
 
   postgres-image:
     image: postgres
+    container_name: datingapp_postgress-image_1
     ports:
-      - "5432"
+      - "5432:5432"
     restart: always
     environment:
-      POSTGRES_USER: "raspi"
+      # POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: "petdating"
     networks:
