@@ -140,6 +140,7 @@ namespace DatingApp.API
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
+        endpoints.MapFallbackToController("Index", "Fallback");
       });
     }
   }
