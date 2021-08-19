@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System;
 using DatingApp.API.Helpers;
+using Microsoft.AspNetCore.Cors;
 
 namespace DatingApp.API.Controllers
 {

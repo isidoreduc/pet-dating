@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { IMessage } from './../_models/message';
 import { IUser } from './../_models/user';
@@ -13,11 +13,17 @@ import { map } from 'rxjs/operators';
 })
 export class UserService {
   baseUrl = environment.apiUrl;
+  //
+  headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+  //
 
   constructor(private http: HttpClient) { }
 
   getUsers = (page?, itemsPerPage?, userParams?, likesParam?): Observable<PaginatedResult<IUser[]>> => {
     const paginatedResult: PaginatedResult<IUser[]> = new PaginatedResult<IUser[]>();
+    const headers = this.headers;
     let params = new HttpParams();
 
     if (page !== null && itemsPerPage !== null) {
@@ -39,7 +45,7 @@ export class UserService {
       params = params.append('likees', 'true');
 
 
-    return this.http.get<IUser[]>(`${this.baseUrl}users`, { observe: 'response', params }).pipe(
+    return this.http.get<IUser[]>(`${this.baseUrl}users`, { headers, observe: 'response', params }).pipe(
       map(response => {
         paginatedResult.result = response.body;
         if (response.headers.get('Pagination') !== null)
@@ -71,6 +77,7 @@ export class UserService {
 
 
   getMessages = (id: number, page?, itemsPerPage?, messageContainer?): Observable<PaginatedResult<IMessage[]>> => {
+    const headers = this.headers;
     const paginatedResult: PaginatedResult<IMessage[]> = new PaginatedResult<IMessage[]>();
     let params = new HttpParams();
     params = params.append('MessageContainer', messageContainer);
@@ -80,7 +87,7 @@ export class UserService {
       params = params.append('pageSize', itemsPerPage);
     }
 
-    return this.http.get<IMessage[]>(`${this.baseUrl}users/${id}/messages`, { observe: 'response', params })
+    return this.http.get<IMessage[]>(`${this.baseUrl}users/${id}/messages`, { headers, observe: 'response', params })
       .pipe(map(response => {
         paginatedResult.result = response.body;
         if (response.headers.get('Pagination') !== null)
