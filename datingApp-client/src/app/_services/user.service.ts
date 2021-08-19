@@ -8,22 +8,20 @@ import { PaginatedResult } from './../_models/pagination';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 
+const headers  = new HttpHeaders({
+  'Authorization': `Bearer ${localStorage.getItem('token')}`
+});
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   baseUrl = environment.apiUrl;
-  //
-  headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    });
-  //
 
   constructor(private http: HttpClient) { }
 
   getUsers = (page?, itemsPerPage?, userParams?, likesParam?): Observable<PaginatedResult<IUser[]>> => {
     const paginatedResult: PaginatedResult<IUser[]> = new PaginatedResult<IUser[]>();
-    const headers = this.headers;
     let params = new HttpParams();
 
     if (page !== null && itemsPerPage !== null) {
@@ -55,29 +53,29 @@ export class UserService {
     );
   };
 
-  getUserById = (id: number): Observable<IUser> =>
-    this.http.get<IUser>(`${this.baseUrl}users/${id}`);
+  getUserById = (id: number): Observable<IUser> => {
+    return this.http.get<IUser>(`${this.baseUrl}users/${id}`, {headers});
+  }
 
-  editUser = (id: number, user: IUser) => this.http.put(`${this.baseUrl}users/${id}`, user);
+  editUser = (id: number, user: IUser) => this.http.put(`${this.baseUrl}users/${id}`, user, {headers});
 
   updateMainPhoto = (userId: number, photoId: number) =>
-    this.http.post(`${this.baseUrl}users/${userId}/photos/${photoId}/setMain`, {});
+    this.http.post(`${this.baseUrl}users/${userId}/photos/${photoId}/setMain`, {}, {headers});
 
   deletePhoto = (userId: number, photoId: number) =>
-    this.http.delete(`${this.baseUrl}users/${userId}/photos/${photoId}`);
+    this.http.delete(`${this.baseUrl}users/${userId}/photos/${photoId}`, {headers});
 
   sendLike = (id: number, recipientId: number) =>
-    this.http.post(`${this.baseUrl}users/${id}/like/${recipientId}`, {});
+    this.http.post(`${this.baseUrl}users/${id}/like/${recipientId}`, {}, {headers});
 
   unLikeUser = (id: number, recipientId: number) =>
-    this.http.delete(`${this.baseUrl}users/${id}/like/${recipientId}`, {});
+    this.http.delete(`${this.baseUrl}users/${id}/like/${recipientId}`, {headers});
 
 
 
 
 
   getMessages = (id: number, page?, itemsPerPage?, messageContainer?): Observable<PaginatedResult<IMessage[]>> => {
-    const headers = this.headers;
     const paginatedResult: PaginatedResult<IMessage[]> = new PaginatedResult<IMessage[]>();
     let params = new HttpParams();
     params = params.append('MessageContainer', messageContainer);
@@ -98,14 +96,14 @@ export class UserService {
 
 
   getMessageThread = (id: number, recipientId: number) =>
-    this.http.get<IMessage[]>(`${this.baseUrl}users/${id}/messages/thread/${recipientId}`);
+    this.http.get<IMessage[]>(`${this.baseUrl}users/${id}/messages/thread/${recipientId}`, {headers});
 
   sendMessage = (id: number, message: IMessage) =>
-    this.http.post(`${this.baseUrl}users/${id}/messages`, message);
+    this.http.post(`${this.baseUrl}users/${id}/messages`, message, {headers});
 
   deleteMessage = (id: number, userId: number) =>
-    this.http.post(`${this.baseUrl}users/${userId}/messages/${id}`, {});
+    this.http.post(`${this.baseUrl}users/${userId}/messages/${id}`, {headers});
 
   markAsRead = (userId: number, messageId: number) =>
-    this.http.post(`${this.baseUrl}users/${userId}/messages/${messageId}/read`, {}).subscribe();
+    this.http.post(`${this.baseUrl}users/${userId}/messages/${messageId}/read`, {}, {headers}).subscribe();
 }

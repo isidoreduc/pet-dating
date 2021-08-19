@@ -3,13 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class FallbackController : ControllerBase
+  public class FallbackController : Controller
+  {
+    public IActionResult Index()
     {
-        public IActionResult Index()
-        {
-          return PhysicalFile(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html"), "text/HTML");
-        }
+      return PhysicalFile(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html"), "text/HTML");
     }
+  }
 }

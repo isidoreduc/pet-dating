@@ -134,7 +134,7 @@ namespace DatingApp.API
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Useless API V1");
 
         // To serve SwaggerUI at application's root page, set the RoutePrefix property to an empty string.
-        c.RoutePrefix = string.Empty;
+        c.RoutePrefix = "swagger";
       });
 
       app.UseEndpoints(endpoints =>
