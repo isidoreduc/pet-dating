@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 import { AlertifyService } from './../../_services/alertify.service';
 import { AuthService } from './../../_services/auth.service';
@@ -11,16 +11,23 @@ import { tap } from 'rxjs/operators';
   templateUrl: './member-messages.component.html',
   styleUrls: ['./member-messages.component.scss']
 })
-export class MemberMessagesComponent implements OnInit {
+export class MemberMessagesComponent implements OnInit, AfterViewChecked {
   @Input() recipientId: number;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   messages: IMessage[];
   newMessage: any = {};
 
   constructor(private userService: UserService, private authService: AuthService,
     private alertifyService: AlertifyService) { }
 
+
   ngOnInit(): void {
     this.loadMessages();
+    this.scrollToBottom();
+  }
+
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
   }
 
   loadMessages = () => {
@@ -46,10 +53,18 @@ export class MemberMessagesComponent implements OnInit {
     this.userService.sendMessage(this.authService.decodedToken.nameid, this.newMessage)
       .subscribe((message: IMessage) => {
         // add new message to beginning of messages array
-        this.messages.unshift(message);
+        // this.messages.unshift(message);
+        this.messages.push(message);
         // reset new message content
         this.newMessage.content = '';
       }, err => this.alertifyService.error(err));
 
   };
+
+
+  private scrollToBottom = () => {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }
+  }
 }

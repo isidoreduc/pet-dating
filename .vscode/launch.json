@@ -15,9 +15,9 @@
         "type": "coreclr",
         "request": "launch",
         "preLaunchTask": "build",
-        "program": "${workspaceFolder}/DatingApp.API/bin/Debug/netcoreapp3.1/DatingApp.API.dll",
+        "program": "${workspaceFolder}/API/bin/Debug/netcoreapp3.1/API.dll",
         "args": [],
-        "cwd": "${workspaceFolder}/DatingApp.API",
+        "cwd": "${workspaceFolder}/API",
         "stopAtEntry": false,
         "serverReadyAction": {
             "action": "openExternally",
@@ -42,7 +42,7 @@
         "request": "launch",
         "preLaunchTask": "docker-run: debug",
         "netCore": {
-            "appProject": "${workspaceFolder}/DatingApp.API/DatingApp.API.csproj"
+            "appProject": "${workspaceFolder}/API/API.csproj"
         }
     }
 ]

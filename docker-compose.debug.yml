@@ -7,6 +7,6 @@ services:
     image: datingappapi
     build:
       context: .
-      dockerfile: DatingApp.API/Dockerfile
+      dockerfile: API/Dockerfile
     volumes:
       - ~/.vsdbg:/remote_debugger:rw

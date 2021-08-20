@@ -100,8 +100,8 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe { }
         tokenGetter: () => {
           return localStorage.getItem("token");
         },
-        allowedDomains: ["localhost:5000"],
-        disallowedRoutes: ["http://localhost:5000/api/auth/"]
+        allowedDomains: ["https://localhost:5103"],
+        disallowedRoutes: ["https://localhost:5103/api/auth/"]
       },
     }),
     FlexLayoutModule,

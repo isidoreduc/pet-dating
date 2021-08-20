@@ -1,5 +1,5 @@
 <div class="card" style="background-color: white; border-radius: 5px; border: var(--my-mauve) 2px solid;">
-  <div class="card-body ">
+  <div class="card-body" #scrollMe>
     <div *ngIf="messages?.length === 0">
       No messages yet... say hi by using the message box below
     </div>
@@ -44,9 +44,9 @@
     <div class="row">
       <mat-form-field class="col-9 mx-2">
         <mat-label>Message</mat-label>
-        <input matInput [(ngModel)]="newMessage.content" name="content" required placeholder="send a private message">
+        <input matInput [(ngModel)]="newMessage.content" name="content" placeholder="send a private message" (keydown.enter)="messageForm.valid && sendMessage()">
       </mat-form-field>
-      <button mat-raised-button type="reset" [disabled]="!messageForm.valid" class=" col-2  mb-2  mx-1" (click)="messageForm.valid && sendMessage()">
+      <button mat-raised-button color="primary" type="reset" [disabled]="newMessage.content==''" class=" col-2  mb-2  mx-1" (click)="messageForm.valid && sendMessage()">
         Send
       </button>
     </div>
