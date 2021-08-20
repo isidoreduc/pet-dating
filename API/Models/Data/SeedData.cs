@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace API.Models.Data
 {
@@ -14,10 +16,12 @@ namespace API.Models.Data
       _context = context;
     }
 
-    public void SeedUsers()
+    public async Task SeedUsersAsync()
     {
+      var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
       if (!_context.Users.Any())
       {
+        // var userData = File.ReadAllText(path + @"Models\Data\UserSeedData.json");
         var userData = File.ReadAllText(@"Models\Data\UserSeedData.json");
         var users = JsonSerializer.Deserialize<IEnumerable<User>>(userData);
         foreach (var item in users)
@@ -30,7 +34,7 @@ namespace API.Models.Data
 
           _context.Users.Add(item);
         }
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
       }
     }
 

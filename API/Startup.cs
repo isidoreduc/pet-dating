@@ -115,9 +115,9 @@ namespace API
           });
         });
       }
-      seeder.SeedUsers();
+      // seeder.SeedUsers();
 
-      app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+      app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().WithOrigins("https://localhost:4200"));
       app.UseHttpsRedirection();
 
       app.UseRouting();
